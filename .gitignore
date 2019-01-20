@@ -1,0 +1,7 @@
+*-debug.log
+*-error.log
+/.cache
+/.nyc_output
+/dist
+/tmp
+node_modules

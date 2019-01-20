@@ -1,0 +1,68 @@
+{
+  "name": "livingdocs-cli",
+  "description": "Livingdocs Command Line Utility",
+  "version": "0.0.0",
+  "author": "Livingdocs AG",
+  "repository": "livingdocsIO/livingdocs-cli",
+  "homepage": "https://github.com/livingdocsIO/livingdocs-cli",
+  "bugs": "https://github.com/livingdocsIO/livingdocs-cli/issues",
+  "bin": {
+    "livingdocs": "./bin/run"
+  },
+  "scripts": {
+    "prepack": "oclif-dev manifest && oclif-dev readme",
+    "postpack": "rm -f oclif.manifest.json",
+    "test": "nyc mocha --forbid-only \"test/**/*.test.js\"",
+    "posttest": "eslint .",
+    "version": "oclif-dev readme && git add README.md"
+  },
+  "dependencies": {
+    "@oclif/command": "^1.5.8",
+    "@oclif/config": "^1.12.0",
+    "@oclif/plugin-help": "^2.1.4",
+    "@oclif/plugin-not-found": "^1.2.2",
+    "@oclif/plugin-warn-if-update-available": "^1.5.4",
+    "cheerio": "^0.22.0",
+    "html-minifier": "^3.5.21",
+    "lodash": "^4.17.11",
+    "mkdirp": "^0.5.1",
+    "npmlog": "^4.1.2",
+    "p-queue": "^3.0.0",
+    "request": "^2.88.0",
+    "request-promise-native": "^1.0.5",
+    "warning-header-parser": "^2.0.0"
+  },
+  "devDependencies": {
+    "@oclif/dev-cli": "^1.21.0",
+    "@oclif/test": "^1.2.2",
+    "chai": "^4.2.0",
+    "eslint": "^5.12.1",
+    "eslint-config-oclif": "^3.1.0",
+    "globby": "^9.0.0",
+    "mocha": "^5.2.0",
+    "nyc": "^13.1.0"
+  },
+  "engines": {
+    "node": ">=8.0.0"
+  },
+  "files": [
+    "/bin",
+    "/npm-shrinkwrap.json",
+    "/oclif.manifest.json",
+    "/src"
+  ],
+  "keywords": [
+    "oclif"
+  ],
+  "license": "MIT",
+  "main": "src/index.js",
+  "oclif": {
+    "commands": "./src/commands",
+    "bin": "livingdocs",
+    "plugins": [
+      "@oclif/plugin-help",
+      "@oclif/plugin-not-found",
+      "@oclif/plugin-warn-if-update-available"
+    ]
+  }
+}
