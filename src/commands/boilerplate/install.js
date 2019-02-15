@@ -57,20 +57,16 @@ Server folder: ${serverDir}
         execP(`cd ${editorDir} && npm install`, silent)
       ])
       cli.action.stop(color.green('Done!'))
-      Shell.exec(`export ENVIRONMENT=local`)
-
-      cli.action.start(color.grey('Starting the Docker image'))
-      await execP(`cd ${serverDir} && docker-compose up -d`, silent)
-      cli.action.stop(color.green('Done!'))
       this.log(`${color.green('Installation successfull!')}
 
 To proceed, go to your newly created server directory
-and take few simple setup steps from there.
+and take few simple setup steps from there:
 
-${color.blue('$ cd '.concat(editorDir))}
-${color.blue('$ npx grunt setup')}
+${color.blue('cd '.concat(serverDir))}
+${color.blue('export ENVIRONMENT=local')}
+${color.blue('docker-compose up -d')}
+${color.blue('npx grunt setup')}
         `)
-      this.exit(1)
     } catch (e) {
       this.error(color.red(e.message))
     }
