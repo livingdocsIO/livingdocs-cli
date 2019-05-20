@@ -40,6 +40,7 @@ BuildCommand.flags = {
   }),
   dist: flags.string({
     char: 'd',
+    env: 'LI_DIST_FOLDER',
     default: '.cache',
     description: 'The folder where the output will be written.\n' +
       'Defaults to ".cache".'

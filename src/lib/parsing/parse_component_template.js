@@ -1,4 +1,3 @@
-const _ = require('lodash')
 const cheerio = require('cheerio')
 const {CLIError} = require('@oclif/errors')
 
@@ -27,17 +26,23 @@ module.exports = function parseTemplate ({fileName, filePath, templateString, op
 
   // filter out comment & text nodes
   // check for one root element
-  const children = _.filter($.root().contents(), el => el.nodeType === 1)
-  if (children.length !== 1) {
+  let tagCount = 0
+  $('body').contents().filter(function (index, el) {
+    const isTag = el.type === 'tag'
+    if (isTag) tagCount += 1
+    return !isTag
+  }).remove()
+
+  if (tagCount !== 1) {
     const msg = `at file ${filePath}\n` +
-      `The template contains ${children.length} root elements. ` +
+      `The template contains ${tagCount} root elements. ` +
       `Templates can only have one root element.`
     const error = new CLIError(msg)
     error.name = 'TemplateParseError'
     throw error
   }
 
-  const outerHtml = $.html(children[0])
+  const outerHtml = $('body').html()
 
   let html
   try {
