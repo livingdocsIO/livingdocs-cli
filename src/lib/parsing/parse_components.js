@@ -45,7 +45,7 @@ module.exports = async function parseComponentTemplates (options) {
   for (const filepath of files) {
     const fullPath = path.join(templatesPath, filepath)
     const templateName = filenameToTemplatename(fullPath)
-    const templateString = await readFileAsync(fullPath)
+    const templateString = await readFileAsync(fullPath, 'utf8')
 
     const component = parseTemplate({
       fileName: templateName,

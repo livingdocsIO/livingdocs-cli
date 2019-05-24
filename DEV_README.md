@@ -39,6 +39,12 @@ cd ../some-other-repo
 livingdocs component-library:build --src component-library
 ```
 
+## Writing tests
+
+`const {expect, test} = require('@oclif/test')`
+
+The `test` variable from oclif is based on fancy-test: https://github.com/jdxcode/fancy-test
+
 
 ## Further Notes
 
