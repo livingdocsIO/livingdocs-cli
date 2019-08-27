@@ -24,7 +24,7 @@
     "@oclif/plugin-warn-if-update-available": "^1.5.4",
     "cheerio": "^1.0.0-rc.3",
     "html-minifier": "^3.5.21",
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.13",
     "mkdirp": "^0.5.1",
     "nanoid": "^2.0.1",
     "npmlog": "^4.1.2",
