@@ -1,8 +1,7 @@
 const os = require('os')
-const fs = require('fs')
+const fs = require('fs-extra')
 const path = require('path')
 const nanoid = require('nanoid')
-const rimraf = require('rimraf')
 
 const {expect, test} = require('@oclif/test')
 
@@ -34,5 +33,5 @@ function createTempFolder (folderName = nanoid(10)) {
 }
 
 function removeTempFolder (tmpFolder) {
-  rimraf.sync(tmpFolder)
+  fs.unlinkSync(tmpFolder)
 }

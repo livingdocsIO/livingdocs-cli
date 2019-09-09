@@ -1,5 +1,6 @@
 const fs = require('fs')
-const _ = require('lodash')
+const _map = require('lodash/map')
+const _find = require('lodash/find')
 
 const {expect, test} = require('../support/test_setup')
 
@@ -27,7 +28,7 @@ describe('component-library:build', function () {
       const data = JSON.parse(jsonData)
 
       expect(Object.keys(data)).to.have.members(['components'])
-      const exportedComponents = _.map(data.components, 'name')
+      const exportedComponents = _map(data.components, 'name')
 
       expect(exportedComponents).to.have.members([
         'no_name',
@@ -37,7 +38,7 @@ describe('component-library:build', function () {
         'with_svg'
       ])
 
-      const titleComponent = _.find(data.components, {name: 'title--from-script-block'})
+      const titleComponent = _find(data.components, {name: 'title--from-script-block'})
       expect(titleComponent).to.deep.equal({
         name: 'title--from-script-block',
         label: 'title--from-script-block',
@@ -45,7 +46,7 @@ describe('component-library:build', function () {
         html: `<h1 class="title" li-text="text">Page Title</h1>` // eslint-disable-line max-len
       })
 
-      const svgComponent = _.find(data.components, {name: 'with_svg'})
+      const svgComponent = _find(data.components, {name: 'with_svg'})
       expect(svgComponent).to.deep.equal({
         name: 'with_svg',
         label: 'with_svg',

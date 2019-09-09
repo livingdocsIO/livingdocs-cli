@@ -1,14 +1,14 @@
 const fs = require('fs')
-const _ = require('lodash')
 const path = require('path')
-const {promisify} = require('util')
 const Glob = require('glob').Glob
+const {promisify} = require('util')
+const _extend = require('lodash/extend')
 
 const {filenameToTemplatename} = require('../utils')
 const parseTemplate = require('./parse_component_template')
 
 const defaultConfig = function (config) {
-  return _.extend({}, {
+  return _extend({}, {
     src: undefined,
     dest: undefined,
     templatesDirectory: 'components',
@@ -45,16 +45,20 @@ module.exports = async function parseComponentTemplates (options) {
   for (const filepath of files) {
     const fullPath = path.join(templatesPath, filepath)
     const templateName = filenameToTemplatename(fullPath)
-    const templateString = await readFileAsync(fullPath, 'utf8')
+    const fileContent = await readFileAsync(fullPath, 'utf8')
 
-    const component = parseTemplate({
-      fileName: templateName,
-      filePath: fullPath,
-      templateString,
-      options
-    })
+    try {
+      const component = parseTemplate({
+        componentName: templateName,
+        fileContent,
+        options
+      })
 
-    components.push(component)
+      components.push(component)
+    } catch (err) {
+      err.message = `${err.message}\nat '${fullPath}'`
+      throw err
+    }
   }
 
   return {components}

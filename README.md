@@ -29,10 +29,26 @@ USAGE
 <!-- usagestop -->
 # Commands
 <!-- commands -->
+* [`livingdocs cli-config:print`](#livingdocs-cli-configprint)
 * [`livingdocs component-library:build`](#livingdocs-component-librarybuild)
-* [`livingdocs component-library:download`](#livingdocs-component-librarydownload)
-* [`livingdocs component-library:upload`](#livingdocs-component-libraryupload)
 * [`livingdocs help [COMMAND]`](#livingdocs-help-command)
+* [`livingdocs project-config:download`](#livingdocs-project-configdownload)
+* [`livingdocs project-config:drafts`](#livingdocs-project-configdrafts)
+* [`livingdocs project-config:plan`](#livingdocs-project-configplan)
+* [`livingdocs project-config:publish`](#livingdocs-project-configpublish)
+* [`livingdocs project-config:upload`](#livingdocs-project-configupload)
+* [`livingdocs project-config:upload_assets`](#livingdocs-project-configupload_assets)
+
+## `livingdocs cli-config:print`
+
+Print current CLI configuration
+
+```
+USAGE
+  $ livingdocs cli-config:print
+```
+
+_See code: [src/commands/cli-config/print.js](https://github.com/livingdocsIO/livingdocs-cli/blob/v0.0.0/src/commands/cli-config/print.js)_
 
 ## `livingdocs component-library:build`
 
@@ -51,43 +67,6 @@ OPTIONS
 
 _See code: [src/commands/component-library/build.js](https://github.com/livingdocsIO/livingdocs-cli/blob/v0.0.0/src/commands/component-library/build.js)_
 
-## `livingdocs component-library:download`
-
-Download the Component Library from your project
-
-```
-USAGE
-  $ livingdocs component-library:download
-
-OPTIONS
-  -d, --dist=dist    The folder or filename where to download to.
-  -h, --host=host    [default: http://localhost:9090] The livingdocs host.
-
-  -t, --token=token  The Access Token to your project (needs write permission).
-                     Can be set by the environment variable 'LI_TOKEN'.
-```
-
-_See code: [src/commands/component-library/download.js](https://github.com/livingdocsIO/livingdocs-cli/blob/v0.0.0/src/commands/component-library/download.js)_
-
-## `livingdocs component-library:upload`
-
-Upload a Component Library to your project
-
-```
-USAGE
-  $ livingdocs component-library:upload
-
-OPTIONS
-  -a, --assets=assets          The folder where you asset files are located.
-  -c, --components=components  The folder with your .html component templates
-  -h, --host=host              [default: http://localhost:9090] The livingdocs host.
-
-  -t, --token=token            The Access Token to your project (needs write permission).
-                               Can be set by the environment variable 'LI_TOKEN'.
-```
-
-_See code: [src/commands/component-library/upload.js](https://github.com/livingdocsIO/livingdocs-cli/blob/v0.0.0/src/commands/component-library/upload.js)_
-
 ## `livingdocs help [COMMAND]`
 
 display help for livingdocs
@@ -103,5 +82,127 @@ OPTIONS
   --all  see all commands in CLI
 ```
 
-_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v2.1.4/src/commands/help.ts)_
+_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v2.2.1/src/commands/help.ts)_
+
+## `livingdocs project-config:download`
+
+Download a project configuration
+
+```
+USAGE
+  $ livingdocs project-config:download
+
+OPTIONS
+  -d, --dist=dist           The folder or filename where to download to.
+
+  -h, --host=host           [default: http://localhost:9090] The livingdocs host.
+                            Can be set by the environment variable 'LI_HOST'.
+
+  -t, --token=token         (required) The Access Token to your project (needs write permission).
+                            Can be set by the environment variable 'LI_TOKEN'.
+
+  --format=js|js/html|json  The format of the files written.
+```
+
+_See code: [src/commands/project-config/download.js](https://github.com/livingdocsIO/livingdocs-cli/blob/v0.0.0/src/commands/project-config/download.js)_
+
+## `livingdocs project-config:drafts`
+
+List project configuration drafts
+
+```
+USAGE
+  $ livingdocs project-config:drafts
+
+OPTIONS
+  -h, --host=host    [default: http://localhost:9090] The livingdocs host.
+                     Can be set by the environment variable 'LI_HOST'.
+
+  -t, --token=token  (required) The Access Token to your project (needs write permission).
+                     Can be set by the environment variable 'LI_TOKEN'.
+```
+
+_See code: [src/commands/project-config/drafts.js](https://github.com/livingdocsIO/livingdocs-cli/blob/v0.0.0/src/commands/project-config/drafts.js)_
+
+## `livingdocs project-config:plan`
+
+See what would be updated in a publish command
+
+```
+USAGE
+  $ livingdocs project-config:plan
+
+OPTIONS
+  -d, --dist=dist    The folder or filename where to download to.
+
+  -h, --host=host    [default: http://localhost:9090] The livingdocs host.
+                     Can be set by the environment variable 'LI_HOST'.
+
+  -t, --token=token  (required) The Access Token to your project (needs write permission).
+                     Can be set by the environment variable 'LI_TOKEN'.
+```
+
+_See code: [src/commands/project-config/plan.js](https://github.com/livingdocsIO/livingdocs-cli/blob/v0.0.0/src/commands/project-config/plan.js)_
+
+## `livingdocs project-config:publish`
+
+Publish a ChannelConfig to your project
+
+```
+USAGE
+  $ livingdocs project-config:publish
+
+OPTIONS
+  -d, --dist=dist    The folder or filename where to download to.
+
+  -h, --host=host    [default: http://localhost:9090] The livingdocs host.
+                     Can be set by the environment variable 'LI_HOST'.
+
+  -t, --token=token  (required) The Access Token to your project (needs write permission).
+                     Can be set by the environment variable 'LI_TOKEN'.
+```
+
+_See code: [src/commands/project-config/publish.js](https://github.com/livingdocsIO/livingdocs-cli/blob/v0.0.0/src/commands/project-config/publish.js)_
+
+## `livingdocs project-config:upload`
+
+Upload a ChannelConfig into a draft for your project
+
+```
+USAGE
+  $ livingdocs project-config:upload
+
+OPTIONS
+  -d, --dist=dist        The folder or filename where to download to.
+
+  -h, --host=host        [default: http://localhost:9090] The livingdocs host.
+                         Can be set by the environment variable 'LI_HOST'.
+
+  -t, --token=token      (required) The Access Token to your project (needs write permission).
+                         Can be set by the environment variable 'LI_TOKEN'.
+
+  --draftName=draftName  (required) The name of the draft the config will be saved under.
+```
+
+_See code: [src/commands/project-config/upload.js](https://github.com/livingdocsIO/livingdocs-cli/blob/v0.0.0/src/commands/project-config/upload.js)_
+
+## `livingdocs project-config:upload_assets`
+
+Upload assets to your project
+
+```
+USAGE
+  $ livingdocs project-config:upload_assets
+
+OPTIONS
+  -a, --assets=assets  The folder where you asset files are located.
+
+  -h, --host=host      [default: http://localhost:9090] The livingdocs host.
+                       Can be set by the environment variable 'LI_HOST'.
+
+  -t, --token=token    (required) The Access Token to your project (needs write permission).
+                       Can be set by the environment variable 'LI_TOKEN'.
+```
+
+_See code: [src/commands/project-config/upload_assets.js](https://github.com/livingdocsIO/livingdocs-cli/blob/v0.0.0/src/commands/project-config/upload_assets.js)_
 <!-- commandsstop -->

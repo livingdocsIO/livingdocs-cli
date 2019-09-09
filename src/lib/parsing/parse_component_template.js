@@ -3,8 +3,8 @@ const {CLIError} = require('@oclif/errors')
 
 const {minifyHtml} = require('../utils')
 
-module.exports = function parseTemplate ({fileName, filePath, templateString, options}) {
-  const $ = cheerio.load(templateString) // -> use livingdocs instead?
+module.exports = function parseTemplate ({componentName, fileContent, options}) {
+  const $ = cheerio.load(fileContent) // -> use livingdocs instead?
 
   let configJson
   for (const selector of options.configurationSelectors) {
@@ -18,47 +18,27 @@ module.exports = function parseTemplate ({fileName, filePath, templateString, op
   try {
     config = JSON.parse(configJson) || {}
   } catch (parseError) {
-    const error = new CLIError(`at file ${filePath}\n` +
-      `${parseError}`)
-    error.name = 'TemplateScriptBlockParseError'
-    throw error
+    throw templateParseError(`invalid script block: ${parseError}`)
   }
 
-  // filter out comment & text nodes
-  // check for one root element
-  let tagCount = 0
-  $('body').contents().filter(function (index, el) {
-    const isTag = el.type === 'tag'
-    if (isTag) tagCount += 1
-    return !isTag
-  }).remove()
+  const outerHtml = getTemplate($) || parseBody($)
 
-  if (tagCount !== 1) {
-    const msg = `at file ${filePath}\n` +
-      `The template contains ${tagCount} root elements. ` +
-      `Templates can only have one root element.`
-    const error = new CLIError(msg)
-    error.name = 'TemplateParseError'
-    throw error
+  if (!outerHtml) {
+    throw templateParseError(`No template found`)
   }
-
-  const outerHtml = $('body').html()
 
   let html
   try {
     html = minifyHtml(outerHtml, options.minifyHtml)
-  } catch (error) {
-    const msg = `Failed to minify the tempate '${fileName}' ` +
-      `${error}`
-
-    throw new Error(msg)
+  } catch (err) {
+    throw templateParseError(`minify error: '${err.message}`)
   }
 
-  return new Template(fileName, html, config)
+  return new ComponentTemplate(componentName, html, config)
 }
 
 
-class Template {
+class ComponentTemplate {
 
   constructor (name, html, config) {
     this.name = name
@@ -72,4 +52,40 @@ class Template {
     this.name = config.name || this.name
     if (!this.label) { this.label = this.name }
   }
+}
+
+function getTemplate ($) {
+  const template = $('template')
+  if (!template.length) return
+
+  if (template.length > 1) {
+    throw templateParseError(`The template contains ${template.length} <template> tags. ` +
+      `There can only be one.`)
+  }
+
+  return template.html()
+}
+
+function parseBody ($) {
+  // filter out comment & text nodes
+  // check for one root element
+  let tagCount = 0
+  $('body').contents().filter(function (index, el) {
+    const isTag = el.type === 'tag'
+    if (isTag) tagCount += 1
+    return !isTag
+  }).remove()
+
+  if (tagCount !== 1) {
+    throw templateParseError(`The template contains ${tagCount} root elements. ` +
+      `Templates can only have one root element.`)
+  }
+
+  return $('body').html()
+}
+
+function templateParseError (msg) {
+  const error = new CLIError(msg)
+  error.name = 'TemplateParseError'
+  return error
 }

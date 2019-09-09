@@ -1,15 +1,15 @@
 const log = require('npmlog')
-const request = require('request-promise-native')
 const parseWarningHeader = require('warning-header-parser')
 
-module.exports = async function (config) {
-  const response = await request(config)
+module.exports = function (axios) {
+  axios.interceptors.response.use(function (response) {
 
-  if (response && response.headers.warning) {
-    logWarningHeaders(response.headers.warning, response.request)
-  }
+    if (response && response.headers && response.headers.warning) {
+      logWarningHeaders(response.headers.warning, response.request)
+    }
 
-  return response
+    return response
+  })
 }
 
 function logWarningHeaders (warningHeader, req) {

@@ -11,6 +11,7 @@ module.exports = {
     char: 'h',
     env: 'LI_HOST',
     default: 'http://localhost:9090',
-    description: 'The livingdocs host.'
+    description: `The livingdocs host.\n` +
+      `Can be set by the environment variable 'LI_HOST'.`
   })
 }
