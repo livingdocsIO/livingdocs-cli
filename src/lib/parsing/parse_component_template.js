@@ -3,7 +3,24 @@ const {CLIError} = require('@oclif/errors')
 
 const {minifyHtml} = require('../utils')
 
-module.exports = function parseTemplate ({componentName, fileContent, options}) {
+/**
+ * @param componentName {string}
+ * @param fileContent {string}
+ * @param options {object}
+ * @param options.configurationSelectors {array<string>}
+ *   - e.g 'script[type=livingdocs-config]'
+ * @param options.minifyHtml {?boolean}
+ * @return {object}
+ */
+module.exports = function parseComponentTemplate ({componentName, fileContent, options}) {
+  try {
+    return parse({componentName, fileContent, options})
+  } catch (err) {
+    throw templateParseError(`file '${componentName}': ${err.message}`)
+  }
+}
+
+function parse ({componentName, fileContent, options}) {
   const $ = cheerio.load(fileContent) // -> use livingdocs instead?
 
   let configJson
@@ -21,7 +38,7 @@ module.exports = function parseTemplate ({componentName, fileContent, options}) 
     throw templateParseError(`invalid script block: ${parseError}`)
   }
 
-  const outerHtml = getTemplate($) || parseBody($)
+  const outerHtml = getTemplate($('template')) || getHtml($('body'))
 
   if (!outerHtml) {
     throw templateParseError(`No template found`)
@@ -54,34 +71,47 @@ class ComponentTemplate {
   }
 }
 
-function getTemplate ($) {
-  const template = $('template')
-  if (!template.length) return
+function getTemplate ($template) {
+  if (!$template.length) return
 
-  if (template.length > 1) {
-    throw templateParseError(`The template contains ${template.length} <template> tags. ` +
+  if ($template.length > 1) {
+    throw templateParseError(`The template contains ${$template.length} <template> tags. ` +
       `There can only be one.`)
   }
 
-  return template.html()
+  // Looks ugly. I know...
+  $template = cheerio.load($template.html())('body')
+
+  return getHtml($template)
 }
 
-function parseBody ($) {
-  // filter out comment & text nodes
-  // check for one root element
-  let tagCount = 0
-  $('body').contents().filter(function (index, el) {
-    const isTag = el.type === 'tag'
-    if (isTag) tagCount += 1
-    return !isTag
-  }).remove()
+function getHtml ($elem) {
+  const {nonElemChildren, tagCount} = parseChildren($elem)
+
+  nonElemChildren.remove()
 
   if (tagCount !== 1) {
     throw templateParseError(`The template contains ${tagCount} root elements. ` +
       `Templates can only have one root element.`)
   }
 
-  return $('body').html()
+  return $elem.html()
+}
+
+// filter out comment & text nodes
+// check for one root element
+function parseChildren ($elem) {
+  let tagCount = 0
+  const nonElemChildren = $elem.contents().filter(function (index, el) {
+    const isTag = el.type === 'tag'
+    if (isTag) tagCount += 1
+    return !isTag
+  })
+
+  return {
+    nonElemChildren,
+    tagCount
+  }
 }
 
 function templateParseError (msg) {

@@ -35,6 +35,23 @@ For example to parse and build the test fixtures manually:
 ./bin/run component-library:build --src test/fixtures/component-library
 ```
 
+## Test helpers
+
+Here are some of the available test helpers:
+
+```js
+test
+  // mute stdout. Caution: this mutes logs and error messages,
+  // comment out when debugging.
+  .stdout()
+  // create a temporary folder and set env variable 'LI_DIST_FOLDER'
+  .tmpdir()
+  // setting environment variables
+  .env({LI_FOO: 'BAR'})
+  // run a command (the same as if you would in the terminal)
+  .command('cli-config:info'.split(' '))
+```
+
 
 ## Updating the readme
 

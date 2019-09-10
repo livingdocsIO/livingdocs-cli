@@ -27,11 +27,10 @@ function createTempFolder (folderName = nanoid(10)) {
   const tmp = os.tmpdir()
   const tmpFolder = path.normalize(`${tmp}/${folderName}`)
 
-  fs.mkdirSync(tmpFolder, 0o777)
-
+  fs.mkdirSync(tmpFolder)
   return tmpFolder
 }
 
 function removeTempFolder (tmpFolder) {
-  fs.unlinkSync(tmpFolder)
+  fs.removeSync(tmpFolder)
 }

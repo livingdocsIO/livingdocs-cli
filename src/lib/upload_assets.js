@@ -3,6 +3,7 @@ const path = require('path')
 const log = require('npmlog')
 const {promisify} = require('util')
 const _each = require('lodash/each')
+const axios = require('axios')
 const {default: PromiseQueue} = require('p-queue')
 
 const {concat} = require('./utils')

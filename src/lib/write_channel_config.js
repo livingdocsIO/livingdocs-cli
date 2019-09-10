@@ -16,8 +16,7 @@ module.exports = async function ({destination, channelConfig, fileType, componen
   await fs.ensureDir(rootFolder)
 
   if (fileType === 'json') {
-    writeJsonFile(`${rootFolder}/index.js`, channelConfig)
-    return
+    return writeJsonFile(`${rootFolder}/index.json`, channelConfig)
   }
 
   fileType = 'js'
@@ -48,11 +47,12 @@ module.exports = async function ({destination, channelConfig, fileType, componen
         if (key === 'components' && writeHtml) {
           const fileName = `${folder}/${propertyKey}.html`
           await writeComponentFile(fileName, property, writeFile)
+          indexFile.entry(`    './${_kebabCase(key)}/${propertyKey}.html'`, 2)
         } else {
           const fileName = `${folder}/${propertyKey}.${fileType}`
           await writeJsFile(fileName, property, writeFile)
+          indexFile.entry(`    require('./${_kebabCase(key)}/${propertyKey}')`, 2)
         }
-        indexFile.entry(`    require('./${_kebabCase(key)}/${propertyKey}')`, 2)
       }
       indexFile.entry(`  ]`, 1)
     } else {
@@ -95,7 +95,7 @@ async function writeComponentFile (fileName, data, writeFile) {
   const config = JSON.stringify(data, undefined, 2)
 
   let htmlFile = ''
-  htmlFile += '<script type="livingdocs-config">§\n'
+  htmlFile += '<script type="livingdocs-config">\n'
   htmlFile += indentString(config, 2)
   htmlFile += '\n</script>\n'
   htmlFile += '\n'

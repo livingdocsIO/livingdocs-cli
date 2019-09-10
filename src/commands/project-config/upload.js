@@ -1,3 +1,4 @@
+const chalk = require('chalk')
 const {Command, flags} = require('@oclif/command')
 
 const sharedFlags = require('../../lib/cli/shared_flags')
@@ -27,6 +28,11 @@ class UploadCommand extends Command {
     const reportError = errorReporter(this.log, host, {verbose: true})
 
     const config = await readChannelConfig({source: dist})
+      .catch((err) => {
+        this.log(chalk.red('✕ Parsing Failed'))
+        throw err
+      })
+
 
     await liApi.uploadDraft({host, token, channelConfig: config})
       .then((result) => {

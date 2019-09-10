@@ -4,7 +4,6 @@ const _find = require('lodash/find')
 
 const {expect, test} = require('../support/test_setup')
 
-// setting environment variables: .env({FOO: 'BAR'})
 describe('component-library:build', function () {
 
   test
@@ -12,15 +11,14 @@ describe('component-library:build', function () {
     .command('component-library:build --src test/fixtures/component-library'.split(' '))
     .it('parses the component templates', (ctx) => {
       expect(ctx.stdout).to.contain('Success')
-      expect(ctx.stdout).to.contain('Parsed 5 component templates')
+      expect(ctx.stdout).to.contain('Parsed 6 component templates')
     })
 
   test
     .stdout()
-    .tmpdir() // create tmp folderr and set env variable 'LI_DIST_FOLDER'
+    .tmpdir() // create tmp folder and set env variable 'LI_DIST_FOLDER'
     .command('component-library:build --src test/fixtures/component-library'.split(' '))
     .it(`creates a 'component-library.json' in the dist folder`, (ctx) => {
-
       const files = fs.readdirSync(ctx.tmpdir)
       expect(files).to.have.members(['component-library.json'])
 
@@ -35,7 +33,8 @@ describe('component-library:build', function () {
         'no_script_block',
         'old_script_block--from-script-block',
         'title--from-script-block',
-        'with_svg'
+        'with_svg',
+        'template_format'
       ])
 
       const titleComponent = _find(data.components, {name: 'title--from-script-block'})
@@ -51,6 +50,14 @@ describe('component-library:build', function () {
         name: 'with_svg',
         label: 'with_svg',
         html: `<div class="header"><h1 class="title" li-text="text"></h1><svg width="0" height="0" style="position:absolute"><symbol viewBox="0 0 7 11" id="test"><path d="M1 1 H2"/><path d="M3 3 V2"/></symbol></svg></div>` // eslint-disable-line max-len
+      })
+
+      const templateComponent = _find(data.components, {name: 'template_format'})
+      expect(templateComponent).to.deep.equal({
+        name: 'template_format',
+        label: 'template_format',
+        category: 'headers',
+        html: `<h1 li-text="text"></h1>` // eslint-disable-line max-len
       })
     })
 })

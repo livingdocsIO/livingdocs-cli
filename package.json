@@ -12,7 +12,8 @@
   "scripts": {
     "prepack": "oclif-dev manifest && oclif-dev readme",
     "postpack": "rm -f oclif.manifest.json",
-    "test": "nyc mocha --forbid-only \"test/**/*.test.js\"",
+    "test": "mocha --forbid-only \"test/**/*.test.js\"",
+    "test:coverage": "nyc mocha --forbid-only \"test/**/*.test.js\"",
     "posttest": "eslint .",
     "version": "oclif-dev readme && git add README.md"
   },
