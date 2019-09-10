@@ -8,6 +8,7 @@ describe('component-library:build', function () {
 
   test
     .stdout()
+    .tmpdir() // create tmp folder and set env variable 'LI_DIST_FOLDER'
     .command('component-library:build --src test/fixtures/component-library'.split(' '))
     .it('parses the component templates', (ctx) => {
       expect(ctx.stdout).to.contain('Success')

@@ -9,6 +9,7 @@ class ListConfigCommand extends Command {
   async run () {
     this.printVar(`LI_HOST`)
     this.printVar(`LI_TOKEN`)
+    this.printVar(`LI_DIST_FOLDER`)
   }
 
   printVar (name) {

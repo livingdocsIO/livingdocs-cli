@@ -13,5 +13,10 @@ module.exports = {
     default: 'http://localhost:9090',
     description: `The livingdocs host.\n` +
       `Can be set by the environment variable 'LI_HOST'.`
+  }),
+  dist: flags.string({
+    char: 'd',
+    env: 'LI_DIST_FOLDER',
+    description: 'The folder where the output will be written.'
   })
 }

@@ -1,6 +1,6 @@
 const {expect, test} = require('../support/test_setup')
 
-describe('component-library:build', function () {
+describe('cli-config:print', function () {
 
   test
     .stdout()

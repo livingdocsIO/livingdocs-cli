@@ -13,10 +13,7 @@ const description = `Download a project configuration`
 const commandFlags = {
   token: {...sharedFlags.token, required: true},
   host: sharedFlags.host,
-  dist: flags.string({
-    char: 'd',
-    description: 'The folder or filename where to download to.'
-  }),
+  dist: sharedFlags.dist,
   format: flags.string({
     options: ['js', 'js/html', 'json'],
     description: 'The format of the files written.',
@@ -31,7 +28,7 @@ class DownloadCommand extends Command {
     const reportError = errorReporter(this.log, host, {verbose: true})
 
     const workingDir = process.cwd()
-    if (dist) {
+    if (dist && !process.env.LI_SKIP_CWD_CHECK === 'true') {
       const rootFolder = path.resolve(dist)
       if (!rootFolder.includes(workingDir)) {
         this.log(chalk.red(`Error: --dist folder must be in current working directory`))
