@@ -12,6 +12,7 @@ const {indentString} = require('./utils')
 module.exports = async function ({destination, channelConfig, fileType, componentsAsHtml}) {
   const rootFolder = path.resolve(destination)
   const writeHtml = fileType === 'js/html'
+  const baseRevision = channelConfig.$baseRevision
 
   await fs.ensureDir(rootFolder)
 
@@ -30,9 +31,14 @@ module.exports = async function ({destination, channelConfig, fileType, componen
   const indexFile = buildFile()
   indexFile.line('module.exports = {', 0)
   indexFile.entry(`  v: 2`, 1)
+  if (baseRevision) {
+    indexFile.entry(`  $baseRevision: ${baseRevision}`, 1)
+  }
+  indexFile.line('', 1)
 
   for (const key in channelConfig) {
     if (key === 'v') continue
+    if (key === '$baseRevision') continue
 
     const prop = channelConfig[key]
 

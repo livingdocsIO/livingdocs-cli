@@ -6,6 +6,7 @@ const liApi = require('../../lib/api/livingdocs_api')
 const errorReporter = require('../../lib/api/error_reporter')
 const resultReporter = require('../../lib/api/channel_config_result_reporter')
 const readChannelConfig = require('../../lib/read_channel_config')
+const updateRevisionNumber = require('../../lib/update_revision_number')
 
 const description = `Publish a ChannelConfig to your project`
 const commandFlags = {
@@ -32,6 +33,11 @@ class PublishCommand extends Command {
     await liApi.publish({host, token, channelConfig: config})
       .then((result) => {
         resultReporter(result, this.log)
+        updateRevisionNumber({
+          source: dist,
+          revisionNumberBefore: config.$baseRevision,
+          revisionNumber: result.revisionNumber
+        })
       })
       .catch(reportError)
   }
