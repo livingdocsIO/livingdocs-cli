@@ -1,5 +1,27 @@
 # Developer Guidelines
 
+## Using the CLI locally
+
+```sh
+export LI_TOKEN=YOUR_TOKEN
+
+# A) Download a config and display in the console
+./bin/run project-config:download
+
+# B) Download a config into /my-project
+./bin/run project-config:download -d tmp/project
+
+# B) Download a config into /tmp/project and write components as Html files
+./bin/run project-config:download -d tmp/project --format=js/html
+
+# See what a publish would change
+./bin/run project-config:plan -d tmp/project
+
+# Publish the config in /tmp/project
+./bin/run project-config:publish -d tmp/project
+```
+
+
 ## Running the tests
 
 ```bash
@@ -13,9 +35,21 @@ For example to parse and build the test fixtures manually:
 ./bin/run component-library:build --src test/fixtures/component-library
 ```
 
-```bash
-export LI_TOKEN=YOUR_TOKEN
-./bin/run component-library:upload --assets test/fixtures/assets
+## Test helpers
+
+Here are some of the available test helpers:
+
+```js
+test
+  // mute stdout. Caution: this mutes logs and error messages,
+  // comment out when debugging.
+  .stdout()
+  // create a temporary folder and set env variable 'LI_DIST_FOLDER'
+  .tmpdir()
+  // setting environment variables
+  .env({LI_FOO: 'BAR'})
+  // run a command (the same as if you would in the terminal)
+  .command('cli-config:info'.split(' '))
 ```
 
 

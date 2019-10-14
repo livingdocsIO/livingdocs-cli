@@ -1,11 +1,5 @@
 const path = require('path')
-const fs = require('fs')
-const mkdirp = require('mkdirp')
-const {promisify} = require('util')
-
-const mkdirpAsync = promisify(mkdirp)
-const writeFileAsync = promisify(fs.writeFile)
-
+const fs = require('fs-extra')
 
 module.exports = async function ({destination, components, minifyJson}) {
   const spacing = minifyJson ? 0 : 2
@@ -13,8 +7,8 @@ module.exports = async function ({destination, components, minifyJson}) {
   const json = exportJson({components, spacing})
   const jsonDest = destination
 
-  await mkdirpAsync(path.dirname(jsonDest))
-  await writeFileAsync(jsonDest, json)
+  await fs.ensureDir(path.dirname(jsonDest))
+  await fs.writeFile(jsonDest, json)
 }
 
 function exportJson ({components, spacing = 0}) {

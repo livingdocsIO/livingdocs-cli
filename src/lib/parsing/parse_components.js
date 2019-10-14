@@ -1,14 +1,14 @@
-const fs = require('fs')
-const _ = require('lodash')
+const fs = require('fs-extra')
 const path = require('path')
-const {promisify} = require('util')
-const Glob = require('glob').Glob
+const globby = require('globby')
+const _extend = require('lodash/extend')
 
 const {filenameToTemplatename} = require('../utils')
 const parseTemplate = require('./parse_component_template')
 
 const defaultConfig = function (config) {
-  return _.extend({}, {
+  return _extend({}, {
+    filePaths: undefined,
     src: undefined,
     dest: undefined,
     templatesDirectory: 'components',
@@ -27,34 +27,42 @@ const defaultConfig = function (config) {
 
 
 // @param callback function (err, files) {}
-function allHtmlFilesCb (folderPath, callback) {
-  new Glob('**/*.html', {cwd: folderPath}, callback) // eslint-disable-line
+function allHtmlFiles (folderPath, callback) {
+  return globby(`${folderPath}/**/*.html`)
 }
 
-const allHtmlFiles = promisify(allHtmlFilesCb)
-const readFileAsync = promisify(fs.readFile)
-
-
+// How to call this:
+// A) parseComponentTemplates({filePaths: [...]})
+// B) parseComponentTemplates({src: 'project-folder', templatesDirectory: 'components'})
 module.exports = async function parseComponentTemplates (options) {
   options = defaultConfig(options)
-  const templatesPath = path.join(options.src, options.templatesDirectory)
 
-  const files = await allHtmlFiles(templatesPath)
+  let files
+  if (options.filePaths) {
+    files = options.filePaths
+  } else {
+    const templatesPath = path.join(options.src, options.templatesDirectory)
+    files = await allHtmlFiles(templatesPath)
+  }
 
   const components = []
   for (const filepath of files) {
-    const fullPath = path.join(templatesPath, filepath)
+    const fullPath = filepath
     const templateName = filenameToTemplatename(fullPath)
-    const templateString = await readFileAsync(fullPath, 'utf8')
+    const fileContent = await fs.readFile(fullPath, 'utf8')
 
-    const component = parseTemplate({
-      fileName: templateName,
-      filePath: fullPath,
-      templateString,
-      options
-    })
+    try {
+      const component = parseTemplate({
+        componentName: templateName,
+        fileContent,
+        options
+      })
 
-    components.push(component)
+      components.push(component)
+    } catch (err) {
+      err.message = `${err.message}\nat '${fullPath}'`
+      throw err
+    }
   }
 
   return {components}

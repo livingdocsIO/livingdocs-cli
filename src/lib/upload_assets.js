@@ -1,39 +1,17 @@
 const fs = require('fs')
-const _ = require('lodash')
-const Glob = require('glob')
 const path = require('path')
-const {promisify} = require('util')
-const PromiseQueue = require('p-queue')
-
 const log = require('npmlog')
-const request = require('./utils/request')
-const assetApiPath = '/api/v2/content-configuration/cli-draft/assets'
+const {promisify} = require('util')
+const _each = require('lodash/each')
+const axios = require('axios')
+const {default: PromiseQueue} = require('p-queue')
 
-// upload to the ☁️
+const {concat} = require('./utils')
+
 module.exports = {
-
-  async uploadJson ({comoonentLibrary, host, token}) {
-    const result = await putJson({comoonentLibrary, host, token})
-    const {componentLibrary, url} = result || {}
-    return {componentLibrary, url}
-  },
-
   async uploadAssets ({folderPath, host, token}) {
     return await uploadAssets({folderPath, host, token})
   }
-}
-
-
-async function putJson ({host, token, jsonString}) {
-  const body = await request({
-    method: 'put',
-    url: `${host}`, // todo: set right url (LP)
-    headers: {Authorization: `Bearer ${token}`},
-    body: jsonString,
-    json: true
-  })
-
-  return body
 }
 
 function allFilesCb (folderPath, callback) {
@@ -43,6 +21,7 @@ function allFilesCb (folderPath, callback) {
   }
   new Glob('**/*', options, callback) // eslint-disable-line
 }
+
 const allFiles = promisify(allFilesCb)
 
 async function uploadAssets ({folderPath, host, token}) {
@@ -56,7 +35,7 @@ async function uploadAssets ({folderPath, host, token}) {
   const assets = files.filter(file => !/^design.js(on)?$/.test(file))
   const queue = new PromiseQueue({concurrency: 10})
 
-  _.each(assets, (relativePath) => {
+  _each(assets, (relativePath) => {
     queue.add(() => {
       const filePath = path.join(folderPath, relativePath)
       return uploadAsset({relativePath, filePath, host, token})
@@ -75,9 +54,11 @@ async function uploadAssets ({folderPath, host, token}) {
 }
 
 async function uploadAsset ({relativePath, filePath, host, token}) {
-  const response = await request({
+  const assetApiPath = '/api/v2/content-configuration/cli-draft/assets'
+
+  const response = await axios({
     method: 'post',
-    url: `${host}${assetApiPath}`,
+    url: `${concat(host, assetApiPath)}`,
     headers: {
       Authorization: `Bearer ${token}`
     },

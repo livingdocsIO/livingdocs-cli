@@ -1,8 +1,18 @@
 const path = require('path')
 const {Command, flags} = require('@oclif/command')
 
+const sharedFlags = require('../../lib/cli/shared_flags')
 const parseComponents = require('../../lib/parsing/parse_components')
 const writeComponentLibrary = require('../../lib/write_component_library')
+
+const description = `Build a Component Library JSON file`
+const commandFlags = {
+  src: flags.string({
+    char: 's',
+    description: 'The folder with your .html component templates'
+  }),
+  dist: sharedFlags.dist
+}
 
 class BuildCommand extends Command {
 
@@ -31,20 +41,6 @@ class BuildCommand extends Command {
 
 }
 
-BuildCommand.description = `Build a Component Library JSON file`
-
-BuildCommand.flags = {
-  src: flags.string({
-    char: 's',
-    description: 'The folder with your .html component templates'
-  }),
-  dist: flags.string({
-    char: 'd',
-    env: 'LI_DIST_FOLDER',
-    default: '.cache',
-    description: 'The folder where the output will be written.\n' +
-      'Defaults to ".cache".'
-  })
-}
-
+BuildCommand.description = description
+BuildCommand.flags = commandFlags
 module.exports = BuildCommand
