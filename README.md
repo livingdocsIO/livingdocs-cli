@@ -17,63 +17,79 @@ Livingdocs Command Line Interface
 <!-- usage -->
 ```sh-session
 $ npm install -g livingdocs-cli
-$ livingdocs COMMAND
+$ livingdocs-cli COMMAND
 running command...
-$ livingdocs (-v|--version|version)
-livingdocs-cli/0.0.0 darwin-x64 node-v8.7.0
-$ livingdocs --help [COMMAND]
+$ livingdocs-cli (-v|--version|version)
+livingdocs-cli/0.0.0 darwin-x64 node-v12.10.0
+$ livingdocs-cli --help [COMMAND]
 USAGE
-  $ livingdocs COMMAND
+  $ livingdocs-cli COMMAND
 ...
 ```
 <!-- usagestop -->
 # Commands
 <!-- commands -->
-* [`livingdocs cli-config:print`](#livingdocs-cli-configprint)
-* [`livingdocs component-library:build`](#livingdocs-component-librarybuild)
-* [`livingdocs help [COMMAND]`](#livingdocs-help-command)
-* [`livingdocs project-config:download`](#livingdocs-project-configdownload)
-* [`livingdocs project-config:drafts`](#livingdocs-project-configdrafts)
-* [`livingdocs project-config:plan`](#livingdocs-project-configplan)
-* [`livingdocs project-config:publish`](#livingdocs-project-configpublish)
-* [`livingdocs project-config:upload`](#livingdocs-project-configupload)
-* [`livingdocs project-config:upload_assets`](#livingdocs-project-configupload_assets)
+* [`livingdocs-cli cli-config:print`](#livingdocs-cli-cli-configprint)
+* [`livingdocs-cli component-library:build`](#livingdocs-cli-component-librarybuild)
+* [`livingdocs-cli design-server:start`](#livingdocs-cli-design-serverstart)
+* [`livingdocs-cli help [COMMAND]`](#livingdocs-cli-help-command)
+* [`livingdocs-cli project-config:download`](#livingdocs-cli-project-configdownload)
+* [`livingdocs-cli project-config:drafts`](#livingdocs-cli-project-configdrafts)
+* [`livingdocs-cli project-config:plan`](#livingdocs-cli-project-configplan)
+* [`livingdocs-cli project-config:publish`](#livingdocs-cli-project-configpublish)
+* [`livingdocs-cli project-config:upload`](#livingdocs-cli-project-configupload)
+* [`livingdocs-cli project-config:upload_assets`](#livingdocs-cli-project-configupload_assets)
 
-## `livingdocs cli-config:print`
+## `livingdocs-cli cli-config:print`
 
 Print current CLI configuration
 
 ```
 USAGE
-  $ livingdocs cli-config:print
+  $ livingdocs-cli cli-config:print
 ```
 
 _See code: [src/commands/cli-config/print.js](https://github.com/livingdocsIO/livingdocs-cli/blob/v0.0.0/src/commands/cli-config/print.js)_
 
-## `livingdocs component-library:build`
+## `livingdocs-cli component-library:build`
 
 Build a Component Library JSON file
 
 ```
 USAGE
-  $ livingdocs component-library:build
+  $ livingdocs-cli component-library:build
 
 OPTIONS
-  -d, --dist=dist  [default: .cache] The folder where the output will be written.
-                   Defaults to ".cache".
-
+  -d, --dist=dist  The folder where the output will be written.
   -s, --src=src    The folder with your .html component templates
 ```
 
 _See code: [src/commands/component-library/build.js](https://github.com/livingdocsIO/livingdocs-cli/blob/v0.0.0/src/commands/component-library/build.js)_
 
-## `livingdocs help [COMMAND]`
+## `livingdocs-cli design-server:start`
 
-display help for livingdocs
+Start a design server for development
 
 ```
 USAGE
-  $ livingdocs help [COMMAND]
+  $ livingdocs-cli design-server:start
+
+OPTIONS
+  -d, --dist=dist  (required) The folder to load designs from.
+  -p, --port=port  [default: 9030] The port of the design-server.
+  --assets=assets  Asset folder to serve static files.
+  --verbose
+```
+
+_See code: [src/commands/design-server/start.js](https://github.com/livingdocsIO/livingdocs-cli/blob/v0.0.0/src/commands/design-server/start.js)_
+
+## `livingdocs-cli help [COMMAND]`
+
+display help for livingdocs-cli
+
+```
+USAGE
+  $ livingdocs-cli help [COMMAND]
 
 ARGUMENTS
   COMMAND  command to show help for
@@ -84,16 +100,16 @@ OPTIONS
 
 _See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v2.2.1/src/commands/help.ts)_
 
-## `livingdocs project-config:download`
+## `livingdocs-cli project-config:download`
 
 Download a project configuration
 
 ```
 USAGE
-  $ livingdocs project-config:download
+  $ livingdocs-cli project-config:download
 
 OPTIONS
-  -d, --dist=dist           The folder or filename where to download to.
+  -d, --dist=dist           The folder where the output will be written.
 
   -h, --host=host           [default: http://localhost:9090] The livingdocs host.
                             Can be set by the environment variable 'LI_HOST'.
@@ -106,13 +122,13 @@ OPTIONS
 
 _See code: [src/commands/project-config/download.js](https://github.com/livingdocsIO/livingdocs-cli/blob/v0.0.0/src/commands/project-config/download.js)_
 
-## `livingdocs project-config:drafts`
+## `livingdocs-cli project-config:drafts`
 
 List project configuration drafts
 
 ```
 USAGE
-  $ livingdocs project-config:drafts
+  $ livingdocs-cli project-config:drafts
 
 OPTIONS
   -h, --host=host    [default: http://localhost:9090] The livingdocs host.
@@ -124,13 +140,13 @@ OPTIONS
 
 _See code: [src/commands/project-config/drafts.js](https://github.com/livingdocsIO/livingdocs-cli/blob/v0.0.0/src/commands/project-config/drafts.js)_
 
-## `livingdocs project-config:plan`
+## `livingdocs-cli project-config:plan`
 
 See what would be updated in a publish command
 
 ```
 USAGE
-  $ livingdocs project-config:plan
+  $ livingdocs-cli project-config:plan
 
 OPTIONS
   -d, --dist=dist    The folder or filename where to download to.
@@ -144,16 +160,16 @@ OPTIONS
 
 _See code: [src/commands/project-config/plan.js](https://github.com/livingdocsIO/livingdocs-cli/blob/v0.0.0/src/commands/project-config/plan.js)_
 
-## `livingdocs project-config:publish`
+## `livingdocs-cli project-config:publish`
 
 Publish a ChannelConfig to your project
 
 ```
 USAGE
-  $ livingdocs project-config:publish
+  $ livingdocs-cli project-config:publish
 
 OPTIONS
-  -d, --dist=dist    The folder or filename where to download to.
+  -d, --dist=dist    The folder to publish from.
 
   -h, --host=host    [default: http://localhost:9090] The livingdocs host.
                      Can be set by the environment variable 'LI_HOST'.
@@ -164,13 +180,13 @@ OPTIONS
 
 _See code: [src/commands/project-config/publish.js](https://github.com/livingdocsIO/livingdocs-cli/blob/v0.0.0/src/commands/project-config/publish.js)_
 
-## `livingdocs project-config:upload`
+## `livingdocs-cli project-config:upload`
 
 Upload a ChannelConfig into a draft for your project
 
 ```
 USAGE
-  $ livingdocs project-config:upload
+  $ livingdocs-cli project-config:upload
 
 OPTIONS
   -d, --dist=dist        The folder or filename where to download to.
@@ -186,13 +202,13 @@ OPTIONS
 
 _See code: [src/commands/project-config/upload.js](https://github.com/livingdocsIO/livingdocs-cli/blob/v0.0.0/src/commands/project-config/upload.js)_
 
-## `livingdocs project-config:upload_assets`
+## `livingdocs-cli project-config:upload_assets`
 
 Upload assets to your project
 
 ```
 USAGE
-  $ livingdocs project-config:upload_assets
+  $ livingdocs-cli project-config:upload_assets
 
 OPTIONS
   -a, --assets=assets  The folder where you asset files are located.

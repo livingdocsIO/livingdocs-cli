@@ -7,7 +7,7 @@
   "homepage": "https://github.com/livingdocsIO/livingdocs-cli",
   "bugs": "https://github.com/livingdocsIO/livingdocs-cli/issues",
   "bin": {
-    "livingdocs": "./bin/run"
+    "livingdocs-cli": "./bin/run"
   },
   "scripts": {
     "prepack": "oclif-dev manifest && oclif-dev readme",
@@ -65,7 +65,7 @@
   "main": "src/index.js",
   "oclif": {
     "commands": "./src/commands",
-    "bin": "livingdocs",
+    "bin": "livingdocs-cli",
     "plugins": [
       "@oclif/plugin-help",
       "@oclif/plugin-not-found",

@@ -70,7 +70,7 @@ npm link
 # the CLI within a real project.
 cd ../some-other-repo
 
-livingdocs component-library:build --src component-library
+livingdocs-cli component-library:build --src component-library
 ```
 
 ## Writing tests
