@@ -33,19 +33,13 @@ class DesignServerCommand extends Command {
     const {port, verbose, dist, assets, basePath} = this.parse(DesignServerCommand).flags
 
     const log = verbose && {prettyPrint: true}
-    const designConfigs = await loadDesigns({source: dist})
 
-    if (!designConfigs.length) {
+    // Check at startup if any design configs can be found
+    const initialDesigns = await initDesigns({dist})
+    if (!Object.keys(initialDesigns).length) {
       this.log(chalk.red('✕ No design configs found'))
       return
     }
-
-    const designs = designConfigs.reduce((acc, designConfig) => {
-      const {name, version} = designConfig
-      acc[name] = acc[name] || {name, versions: {}}
-      acc[name].versions[version] = designConfig
-      return acc
-    }, {})
 
     const fastify = require('fastify')({
       logger: log
@@ -67,13 +61,15 @@ class DesignServerCommand extends Command {
       })
     })
 
-    fastify.get('/designs', (request, reply) => {
+    fastify.get('/designs', async (request, reply) => {
+      const designs = await initDesigns({dist})
       reply.send({designs: Object.keys(designs)})
     })
 
-    fastify.get('/designs/:designName', (request, reply) => {
+    fastify.get('/designs/:designName', async (request, reply) => {
       const {designName} = request.params
 
+      const designs = await initDesigns({dist})
       const design = designs[designName]
       if (!design) {
         reply.status(404)
@@ -83,9 +79,10 @@ class DesignServerCommand extends Command {
       reply.send({versions: Object.keys(design.versions)})
     })
 
-    fastify.get('/designs/:designName/:version', (request, reply) => {
+    fastify.get('/designs/:designName/:version', async (request, reply) => {
       const {designName, version} = request.params
 
+      const designs = await initDesigns({dist})
       const design = designs[designName]
       if (!design) {
         reply.status(404)
@@ -116,6 +113,21 @@ class DesignServerCommand extends Command {
       if (!log) this.log(chalk.green(`server listening at ${address}`))
     })
   }
+}
+
+async function initDesigns ({dist}) {
+  const designConfigs = await loadDesigns({source: dist})
+
+  if (!designConfigs.length) return {}
+
+  const designs = designConfigs.reduce((acc, designConfig) => {
+    const {name, version} = designConfig
+    acc[name] = acc[name] || {name, versions: {}}
+    acc[name].versions[version] = designConfig
+    return acc
+  }, {})
+
+  return designs
 }
 
 function setupStaticFolder ({fastify, assets}) {
