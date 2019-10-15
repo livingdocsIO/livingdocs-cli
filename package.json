@@ -71,5 +71,8 @@
       "@oclif/plugin-not-found",
       "@oclif/plugin-warn-if-update-available"
     ]
+  },
+  "release": {
+    "extends": "@livingdocs/semantic-release-presets/npm-github"
   }
 }

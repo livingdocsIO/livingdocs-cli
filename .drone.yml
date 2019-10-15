@@ -1,0 +1,41 @@
+---
+kind: pipeline
+name: default
+
+clone:
+  depth: 50
+
+steps:
+- name: npm-install
+  image: node:10-alpine
+  commands: ["npm install"]
+
+- name: eslint
+  image: marcbachmann/eslint:4.19.1
+  environment:
+    GH_TOKEN:
+      from_secret: GH_TOKEN
+
+- name: test-node-10
+  image: node:10-alpine
+  commands: ["npm run test -s"]
+
+- name: test-node-12
+  image: node:12-alpine
+  commands: ["npm rebuild && npm run test -s"]
+
+- name: release
+  image: livingdocs/semantic-release:v1.0.0
+  environment:
+    GH_TOKEN:
+      from_secret: GH_TOKEN
+    NPM_TOKEN:
+      from_secret: NPM_TOKEN
+
+trigger:
+  event: [push]
+---
+kind: signature
+hmac: d6d12028a5b607f78757294603f06e629044efb0dc3f9d4466a51b195f18e6c7
+
+...
