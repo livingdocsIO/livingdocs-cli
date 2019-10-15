@@ -20,16 +20,19 @@ const commandFlags = {
   assets: flags.string({
     description: 'Asset folder to serve static files.'
   }),
+  basePath: flags.string({
+    description: 'The basePath to set in `assets.basePath`.'
+  }),
   verbose: flags.boolean()
 }
 
 class DesignServerCommand extends Command {
 
   async run () {
-    const {port, verbose, dist, assets} = this.parse(DesignServerCommand).flags
+    let host
+    const {port, verbose, dist, assets, basePath} = this.parse(DesignServerCommand).flags
 
     const log = verbose && {prettyPrint: true}
-
     const designConfigs = await loadDesigns({source: dist})
 
     if (!designConfigs.length) {
@@ -95,6 +98,10 @@ class DesignServerCommand extends Command {
         return
       }
 
+      designConfig.assets = designConfig.assets || {}
+      const defaultBasePath = `${host}/designs/${designName}/${version}`
+      designConfig.assets.basePath = basePath || defaultBasePath
+
       reply.send(designConfig)
     })
 
@@ -105,6 +112,7 @@ class DesignServerCommand extends Command {
 
     fastify.listen(port, (err, address) => {
       if (err) throw err
+      host = address
       if (!log) this.log(chalk.green(`server listening at ${address}`))
     })
   }
