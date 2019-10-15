@@ -48,6 +48,8 @@ class DesignServerCommand extends Command {
       logger: log
     })
 
+    fastify.register(require('fastify-cors'))
+
     if (assets) setupStaticFolder({fastify, assets})
 
     fastify.get('/', (request, reply) => {
