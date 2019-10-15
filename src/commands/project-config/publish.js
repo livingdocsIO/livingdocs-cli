@@ -14,7 +14,7 @@ const commandFlags = {
   host: sharedFlags.host,
   dist: flags.string({
     char: 'd',
-    description: 'The folder or filename where to download to.'
+    description: 'The folder to publish from.'
   })
 }
 

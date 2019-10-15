@@ -27,6 +27,8 @@
     "chalk": "^2.4.2",
     "cheerio": "^1.0.0-rc.3",
     "dedent": "^0.7.0",
+    "fastify": "^2.10.0",
+    "fastify-static": "^2.5.0",
     "fs-extra": "^8.1.0",
     "globby": "^10.0.1",
     "html-minifier": "^4.0.0",
@@ -37,6 +39,7 @@
     "nanoid": "^2.1.0",
     "npmlog": "^4.1.2",
     "p-queue": "^6.1.1",
+    "pino-pretty": "^3.2.2",
     "warning-header-parser": "^2.0.0"
   },
   "devDependencies": {
