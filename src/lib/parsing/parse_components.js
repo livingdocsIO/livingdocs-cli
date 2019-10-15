@@ -25,9 +25,7 @@ const defaultConfig = function (config) {
   }, config)
 }
 
-
-// @param callback function (err, files) {}
-function allHtmlFiles (folderPath, callback) {
+function allHtmlFiles (folderPath) {
   return globby(`${folderPath}/**/*.html`)
 }
 
@@ -47,9 +45,8 @@ module.exports = async function parseComponentTemplates (options) {
 
   const components = []
   for (const filepath of files) {
-    const fullPath = filepath
-    const templateName = filenameToTemplatename(fullPath)
-    const fileContent = await fs.readFile(fullPath, 'utf8')
+    const templateName = filenameToTemplatename(filepath)
+    const fileContent = await fs.readFile(filepath, 'utf8')
 
     try {
       const component = parseTemplate({
@@ -60,7 +57,7 @@ module.exports = async function parseComponentTemplates (options) {
 
       components.push(component)
     } catch (err) {
-      err.message = `${err.message}\nat '${fullPath}'`
+      err.message = `${err.message}\nat '${filepath}'`
       throw err
     }
   }
