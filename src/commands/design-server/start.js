@@ -72,7 +72,7 @@ class DesignServerCommand extends Command {
       const designs = await initDesigns({dist})
       const design = designs[designName]
       if (!design) {
-        reply.status(404)
+        reply.status(404).send({error: 'Not Found'})
         return
       }
 
@@ -85,13 +85,13 @@ class DesignServerCommand extends Command {
       const designs = await initDesigns({dist})
       const design = designs[designName]
       if (!design) {
-        reply.status(404)
+        reply.status(404).send({error: 'Not Found'})
         return
       }
 
       const designConfig = design.versions[version]
       if (!designConfig) {
-        reply.status(404)
+        reply.status(404).send({error: 'Not Found'})
         return
       }
 
@@ -120,14 +120,12 @@ async function initDesigns ({dist}) {
 
   if (!designConfigs.length) return {}
 
-  const designs = designConfigs.reduce((acc, designConfig) => {
+  return designConfigs.reduce((acc, designConfig) => {
     const {name, version} = designConfig
     acc[name] = acc[name] || {name, versions: {}}
     acc[name].versions[version] = designConfig
     return acc
   }, {})
-
-  return designs
 }
 
 function setupStaticFolder ({fastify, assets}) {
