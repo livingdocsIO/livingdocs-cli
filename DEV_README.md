@@ -19,6 +19,9 @@ export LI_TOKEN=YOUR_TOKEN
 
 # Publish the config in /tmp/project
 ./bin/run project-config:publish -d tmp/project
+
+# Run a local design server serving built design jsons from dist/designs
+./bin/run design-server:start -d dist/designs
 ```
 
 
