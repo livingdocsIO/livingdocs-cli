@@ -32,17 +32,8 @@ class DesignServerCommand extends Command {
     let host
     const {port, verbose, dist, assets, basePath} = this.parse(DesignServerCommand).flags
 
-    const log = verbose && {prettyPrint: true}
-
-    // Check at startup if any design configs can be found
-    const initialDesigns = await initDesigns({dist})
-    if (!Object.keys(initialDesigns).length) {
-      this.log(chalk.red('✕ No design configs found'))
-      return
-    }
-
     const fastify = require('fastify')({
-      logger: log
+      logger: verbose ? {prettyPrint: true} : undefined
     })
 
     fastify.register(require('fastify-cors'))
@@ -110,7 +101,7 @@ class DesignServerCommand extends Command {
     fastify.listen(port, (err, address) => {
       if (err) throw err
       host = address
-      if (!log) this.log(chalk.green(`server listening at ${address}`))
+      if (!verbose) this.log(chalk.green(`server listening at ${address}`))
     })
   }
 }
