@@ -3,8 +3,7 @@ const _map = require('lodash/map')
 const parseComponents = require('./parsing/parse_components')
 
 module.exports = async function ({source}) {
-  const rootFolder = path.resolve(source)
-  const channelConfig = require(rootFolder)
+  const {rootFolder, channelConfig} = loadChannelConfig(source)
 
   if (channelConfig.components) {
     let needsLoading = false
@@ -22,4 +21,14 @@ module.exports = async function ({source}) {
     }
   }
   return channelConfig
+}
+
+function loadChannelConfig (source) {
+  try {
+    const rootFolder = path.resolve(source)
+    const channelConfig = require(rootFolder)
+    return {rootFolder, channelConfig}
+  } catch (err) {
+    throw new Error(`Could not load channel config from path '${source}'`)
+  }
 }

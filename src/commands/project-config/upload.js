@@ -13,7 +13,8 @@ const commandFlags = {
   host: sharedFlags.host,
   dist: flags.string({
     char: 'd',
-    description: 'The folder or filename where to download to.'
+    required: true,
+    description: 'The folder or filename to the channelConfig.'
   }),
   draftName: flags.string({
     description: 'The name of the draft the config will be saved under.',
