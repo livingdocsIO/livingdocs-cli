@@ -1,10 +1,16 @@
 const {flags} = require('@oclif/command')
 
 module.exports = {
-  token: flags.string({
+  configWriteToken: flags.string({
     char: 't',
     env: 'LI_TOKEN',
-    description: 'The Access Token to your project (needs write permission).\n' +
+    description: 'Access Token for your project (needs `public-api:config:write` permission).\n' +
+      `Can be set by the environment variable 'LI_TOKEN'.`
+  }),
+  configReadToken: flags.string({
+    char: 't',
+    env: 'LI_TOKEN',
+    description: 'Access Token for your project (needs `public-api:config:read` permission).\n' +
       `Can be set by the environment variable 'LI_TOKEN'.`
   }),
   host: flags.string({

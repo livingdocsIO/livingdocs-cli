@@ -7,7 +7,7 @@ const errorReporter = require('../../lib/api/error_reporter')
 
 const description = `List project configuration drafts`
 const commandFlags = {
-  token: {...sharedFlags.token, required: true},
+  token: {...sharedFlags.configReadToken, required: true},
   host: sharedFlags.host
 }
 
