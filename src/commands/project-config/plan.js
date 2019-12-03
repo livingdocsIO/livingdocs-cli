@@ -8,11 +8,12 @@ const readChannelConfig = require('../../lib/read_channel_config')
 
 const description = `See what would be updated in a publish command`
 const commandFlags = {
-  token: {...sharedFlags.token, required: true},
+  token: {...sharedFlags.configWriteToken, required: true},
   host: sharedFlags.host,
   dist: flags.string({
     char: 'd',
-    description: 'The folder or filename where to download to.'
+    required: true,
+    description: 'The folder or filename to the channelConfig.'
   })
 }
 

@@ -7,7 +7,7 @@ const liApi = require('../../lib/api/livingdocs_api')
 
 const description = `Upload assets to your project`
 const commandFlags = {
-  token: {...sharedFlags.token, required: true},
+  token: {...sharedFlags.configWriteToken, required: true},
   host: sharedFlags.host,
   assets: flags.string({
     char: 'a',

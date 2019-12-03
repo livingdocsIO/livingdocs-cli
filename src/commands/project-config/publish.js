@@ -10,11 +10,12 @@ const updateRevisionNumber = require('../../lib/update_revision_number')
 
 const description = `Publish a ChannelConfig to your project`
 const commandFlags = {
-  token: {...sharedFlags.token, required: true},
+  token: {...sharedFlags.configWriteToken, required: true},
   host: sharedFlags.host,
   dist: flags.string({
     char: 'd',
-    description: 'The folder to publish from.'
+    required: true,
+    description: 'The folder or filename to the channelConfig.'
   })
 }
 
