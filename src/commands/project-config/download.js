@@ -11,8 +11,10 @@ const assertDistFolder = require('../../lib/cli/assert_dist_folder')
 
 const description = `Download a project configuration`
 const commandFlags = {
+  project: sharedFlags.project,
+  env: sharedFlags.env,
   token: {...sharedFlags.configReadToken, required: true},
-  host: sharedFlags.host,
+  host: {...sharedFlags.host, required: true},
   dist: sharedFlags.dist,
   format: flags.string({
     options: ['js', 'js/html', 'json'],
