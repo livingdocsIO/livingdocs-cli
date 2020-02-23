@@ -32,6 +32,8 @@ class DownloadCommand extends Command {
     const result = await liApi.download({host, token})
       .catch(reportError)
 
+    if (!result) return
+
     if (dist) {
       const {fileCount, oldFiles} = await writeConfig({
         destination: dist,
@@ -40,7 +42,7 @@ class DownloadCommand extends Command {
         componentsAsHtml: false
       })
 
-      this.log(chalk.green(`\n✓ Success. Config Written to ${fileCount} files.`))
+      this.log(chalk.green(`\n✓ Success. Config Written to '${dist}' (${fileCount} files).`))
 
       // Remove obsolete files
       if (oldFiles && oldFiles.length) {
