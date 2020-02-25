@@ -1,5 +1,6 @@
 const chalk = require('chalk')
 const {Command} = require('@oclif/command')
+const inquirer = require('inquirer')
 
 const sharedFlags = require('../../lib/cli/shared_flags')
 const liApi = require('../../lib/api/livingdocs_api')
@@ -24,7 +25,7 @@ const commandFlags = {
 class PublishCommand extends Command {
 
   async run () {
-    const {token, host, dist} = this.parse(PublishCommand).flags
+    const {token, host, dist, env} = this.parse(PublishCommand).flags
     const reportError = errorReporter(this.log, host, {verbose: true})
 
     const config = await readChannelConfig({source: dist})
@@ -32,6 +33,18 @@ class PublishCommand extends Command {
         this.log(chalk.red('✕ Parsing Failed'))
         throw err
       })
+
+    // safety check for production environment
+    if (env === 'production') {
+      const answers = await inquirer.prompt([{
+        name: 'continue',
+        type: 'confirm',
+        default: false,
+        message: `Are you sure to publish to production?`
+      }])
+
+      if (!answers.continue) return
+    }
 
     await liApi.publish({host, token, channelConfig: config})
       .then((result) => {
