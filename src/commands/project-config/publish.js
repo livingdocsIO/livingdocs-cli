@@ -1,5 +1,5 @@
 const chalk = require('chalk')
-const {Command, flags} = require('@oclif/command')
+const {Command} = require('@oclif/command')
 
 const sharedFlags = require('../../lib/cli/shared_flags')
 const liApi = require('../../lib/api/livingdocs_api')
@@ -10,13 +10,15 @@ const updateRevisionNumber = require('../../lib/update_revision_number')
 
 const description = `Publish a ChannelConfig to your project`
 const commandFlags = {
+  project: sharedFlags.project,
+  env: sharedFlags.env,
   token: {...sharedFlags.configWriteToken, required: true},
-  host: sharedFlags.host,
-  dist: flags.string({
-    char: 'd',
+  host: {...sharedFlags.host, required: true},
+  dist: {
+    ...sharedFlags.dist,
     required: true,
     description: 'The folder or filename to the channelConfig.'
-  })
+  }
 }
 
 class PublishCommand extends Command {

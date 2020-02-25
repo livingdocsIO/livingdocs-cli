@@ -1,4 +1,4 @@
-const {Command, flags} = require('@oclif/command')
+const {Command} = require('@oclif/command')
 
 const sharedFlags = require('../../lib/cli/shared_flags')
 const liApi = require('../../lib/api/livingdocs_api')
@@ -8,13 +8,15 @@ const readChannelConfig = require('../../lib/read_channel_config')
 
 const description = `See what would be updated in a publish command`
 const commandFlags = {
+  project: sharedFlags.project,
+  env: sharedFlags.env,
   token: {...sharedFlags.configWriteToken, required: true},
-  host: sharedFlags.host,
-  dist: flags.string({
-    char: 'd',
+  host: {...sharedFlags.host, required: true},
+  dist: {
+    ...sharedFlags.dist,
     required: true,
     description: 'The folder or filename to the channelConfig.'
-  })
+  }
 }
 
 class PlanCommand extends Command {

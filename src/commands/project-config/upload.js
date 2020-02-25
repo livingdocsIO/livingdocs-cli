@@ -9,8 +9,10 @@ const readChannelConfig = require('../../lib/read_channel_config')
 
 const description = `Upload a ChannelConfig into a draft for your project`
 const commandFlags = {
+  project: sharedFlags.project,
+  env: sharedFlags.env,
   token: {...sharedFlags.configWriteToken, required: true},
-  host: sharedFlags.host,
+  host: {...sharedFlags.host, required: true},
   dist: flags.string({
     char: 'd',
     required: true,

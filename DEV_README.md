@@ -24,6 +24,61 @@ export LI_TOKEN=YOUR_TOKEN
 ./bin/run design-server:start -d dist/designs
 ```
 
+## Using a .livingdocs-cli file
+
+Managing different environments in your config file:
+```json
+{
+  "environments": {
+    "local": {
+      "host": "https://localhost:9071",
+      "token": "local-token",
+      "distFolder": "./project-config/local"
+    },
+    "production": {
+      "host": "https://production.your-service.com",
+      "token": "production-token",
+      "distFolder": "./project-config/production"
+    }
+  }
+}
+```
+
+Example usage:
+```bash
+npx livingdocs-cli project-config:download --env local
+```
+
+Managing different projects and environments in your config file:
+```json
+{
+  "projects": {
+    "my-project": {
+      "environments": {
+        "development": {
+          "host": "https://localhost:9071",
+          "token": "development-token",
+          "distFolder": "./project-config/development"
+        },
+        "production": {
+          "host": "https://production.your-service.com",
+          "token": "production-token",
+          "distFolder": "./project-config/production"
+        }
+      }
+    }
+  },
+  "alias": {
+    "dev": "development"
+  }
+}
+```
+
+Example usage:
+```bash
+npx livingdocs-cli project-config:download --project my-project --env dev
+```
+
 
 ## Running the tests
 
