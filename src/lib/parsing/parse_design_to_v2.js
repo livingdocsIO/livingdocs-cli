@@ -9,7 +9,21 @@ module.exports = function (design) {
   const parsedDesign = {
     v: 2,
     designSettings: {
-      assets: design.assets,
+      assets: {
+        basePath: _.get(design, 'assets.basePath'),
+        css: _.map(_.get(design, 'assets.css', []), (css) => {
+          if (css.startsWith(/(http(s)?:)?\/\//)) return css
+          const basePath = _.get(design, 'assets.basePath')
+          const url = new URL(css, basePath)
+          return url.href
+        }),
+        js: _.map(_.get(design, 'assets.css', []), (css) => {
+          if (css.startsWith(/(http(s)?:)?\/\//)) return css
+          const basePath = _.get(design, 'assets.basePath')
+          const url = new URL(css, basePath)
+          return url.href
+        })
+      },
       componentGroups: design.groups,
       defaultComponents: design.defaultComponents,
       fieldExtractor: design.metadata,
