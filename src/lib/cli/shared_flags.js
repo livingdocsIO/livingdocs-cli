@@ -65,6 +65,18 @@ module.exports = {
         return process.env.LI_DIST_FOLDER
       }
     }
+  }),
+  designUri: flags.string({
+    char: 'u',
+    description: 'URL of the design to import',
+    default ({options, flags: givenFlags}) {
+      const sessionConfig = getCliConfig(givenFlags)
+      if (sessionConfig) {
+        return sessionConfig.host
+      } else {
+        return process.env.LI_DESIGN_URI
+      }
+    }
   })
 }
 
