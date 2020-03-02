@@ -12,14 +12,14 @@ module.exports = function (design) {
       assets: {
         basePath: _.get(design, 'assets.basePath'),
         css: _.map(_.get(design, 'assets.css', []), (css) => {
-          if (css.startsWith(/(http(s)?:)?\/\//)) return css
-          const basePath = _.get(design, 'assets.basePath')
+          if (css.match(/(http(s)?:)?\/\//)) return css
+          const basePath = `${_.get(design, 'assets.basePath')}/`
           const url = new URL(css, basePath)
           return url.href
         }),
-        js: _.map(_.get(design, 'assets.css', []), (css) => {
-          if (css.startsWith(/(http(s)?:)?\/\//)) return css
-          const basePath = _.get(design, 'assets.basePath')
+        js: _.map(_.get(design, 'assets.js', []), (css) => {
+          if (css.match(/(http(s)?:)?\/\//)) return css
+          const basePath = `${_.get(design, 'assets.basePath')}/`
           const url = new URL(css, basePath)
           return url.href
         })
@@ -55,9 +55,11 @@ module.exports = function (design) {
     if (!_.isEmpty(componentV1.directives)) {
       try {
         const {structure} = parseComponent(componentV1)
-        componentV2.directives = structure.directives.each((d) => {
-          return _.omit(d, ['index'])
+        const cleaned = []
+        structure.directives.each((d) => {
+          cleaned.push(_.omit(d, ['index']))
         })
+        componentV2.directives = cleaned
       } catch (e) {
         chalk.red(dedent`
           ✕ Component Parse Error
