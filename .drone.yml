@@ -6,10 +6,6 @@ clone:
   depth: 50
 
 steps:
-- name: npm-install
-  image: node:10-alpine
-  commands: ["npm install"]
-
 - name: eslint
   image: marcbachmann/eslint:4.19.1
   environment:
@@ -18,11 +14,11 @@ steps:
 
 - name: test-node-10
   image: node:10-alpine
-  commands: ["npm run test -s"]
+  commands: ["npm ci", "npm run test -s"]
 
 - name: test-node-12
   image: node:12-alpine
-  commands: ["npm rebuild && npm run test -s"]
+  commands: ["rm -Rf node_modules", "npm ci", "npm run test -s"]
 
 - name: release
   image: livingdocs/semantic-release:v1.0.0
@@ -36,6 +32,6 @@ trigger:
   event: [push]
 ---
 kind: signature
-hmac: d6d12028a5b607f78757294603f06e629044efb0dc3f9d4466a51b195f18e6c7
+hmac: ea6dec4cbe6f6221d3b5b938721f4872f28761cefe9edaf63a353aa1ae6d8da2
 
 ...
