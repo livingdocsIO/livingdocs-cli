@@ -56,7 +56,7 @@ module.exports = {
 function axios (host, token) {
   const axiosInstance = _axios.create({
     baseURL: host,
-    timeout: 1000,
+    timeout: 10000,
     headers: {
       Authorization: `Bearer ${token}`
     }
