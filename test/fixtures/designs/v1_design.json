@@ -1,0 +1,1080 @@
+{
+  "name": "living-stories",
+  "label": "Living Stories",
+  "version": "0.0.2",
+  "license": "Copyright (c) 2018 Livingdocs AG, all rights reserved",
+  "assets": {
+    "basePath": "https://cdn-jbxbgjz.livingdocs.io/designs/living-stories/0.0.2",
+    "css": [
+      "./styles.css"
+    ],
+    "js": [
+      "./scripts.js"
+    ]
+  },
+  "componentProperties": {
+    "paragraph-style-lead": {
+      "label": "Lead",
+      "type": "option",
+      "value": "paragraph--lead"
+    },
+    "position": {
+      "label": "Position",
+      "type": "select",
+      "options": [
+        {
+          "caption": "Middle"
+        },
+        {
+          "caption": "Left",
+          "value": "left"
+        },
+        {
+          "caption": "Right",
+          "value": "right"
+        }
+      ]
+    },
+    "image-position": {
+      "label": "Position",
+      "type": "select",
+      "options": [
+        {
+          "caption": "Middle"
+        },
+        {
+          "caption": "Left",
+          "value": "image--left"
+        },
+        {
+          "caption": "Right",
+          "value": "image--right"
+        }
+      ]
+    },
+    "teaser-feature-style": {
+      "label": "Style",
+      "type": "select",
+      "options": [
+        {
+          "caption": "Big"
+        },
+        {
+          "caption": "Small",
+          "value": "teaser-feature-card--small"
+        }
+      ]
+    },
+    "image-width": {
+      "label": "Image width",
+      "type": "select",
+      "options": [
+        {
+          "caption": "Normal"
+        },
+        {
+          "caption": "Wide",
+          "value": "image--wide"
+        }
+      ]
+    },
+    "container-style-breath": {
+      "label": "Extra margin",
+      "type": "option",
+      "value": "container--breath"
+    },
+    "container-style-lined": {
+      "label": "Add lines",
+      "type": "option",
+      "value": "container--lined"
+    },
+    "options": {
+      "id": "Options",
+      "label": "Options",
+      "type": "select",
+      "options": [
+        {
+          "caption": "Default"
+        },
+        {
+          "caption": "Stripe",
+          "value": "half-height"
+        }
+      ]
+    },
+    "featured": {
+      "label": "Featured",
+      "type": "option",
+      "value": "bleed"
+    },
+    "unordered": {
+      "label": "Unordered",
+      "type": "option",
+      "value": "bullet"
+    },
+    "large": {
+      "label": "Large",
+      "type": "option",
+      "value": "large"
+    },
+    "list-type": {
+      "label": "List Type",
+      "type": "select",
+      "options": [
+        {
+          "caption": "Bullets"
+        },
+        {
+          "caption": "Numbers",
+          "value": "decimal"
+        },
+        {
+          "caption": "Letters",
+          "value": "lower-latin"
+        },
+        {
+          "caption": "Romans",
+          "value": "lower-roman"
+        }
+      ]
+    }
+  },
+  "layouts": [
+    {
+      "name": "regular",
+      "caption": "Article",
+      "wrapper": "<div class=\"doc-section wrapper wrapper--article\"></div>",
+      "defaultContent": [
+        {
+          "identifier": "living-stories.article-container",
+          "containers": {
+            "header": [
+              {
+                "identifier": "living-stories.head"
+              }
+            ],
+            "main": [
+              {
+                "identifier": "living-stories.image"
+              },
+              {
+                "identifier": "living-stories.paragraph"
+              },
+              {
+                "identifier": "living-stories.teaser-author"
+              }
+            ]
+          }
+        }
+      ],
+      "groups": [
+        {
+          "label": "Headers",
+          "components": [
+            "head",
+            "head-wide",
+            "subtitle"
+          ]
+        },
+        {
+          "label": "Text",
+          "components": [
+            "paragraph",
+            "quote",
+            "separator",
+            "bullet-list",
+            "event-list"
+          ]
+        },
+        {
+          "label": "Images",
+          "components": [
+            "image",
+            "image-row",
+            "image-full-bleed"
+          ]
+        },
+        {
+          "label": "Embeds",
+          "components": [
+            "tweet",
+            "iframe",
+            "free-html"
+          ]
+        },
+        {
+          "label": "Teasers",
+          "components": [
+            "teaser-author",
+            "teaser-card",
+            "teaser-gallery-hero"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "gallery",
+      "caption": "Gallery",
+      "wrapper": "<div class=\"doc-section wrapper wrapper--article\"></div>",
+      "defaultContent": [
+        {
+          "identifier": "living-stories.article-container",
+          "containers": {
+            "header": [
+              {
+                "identifier": "living-stories.head"
+              }
+            ],
+            "main": [
+              {
+                "identifier": "living-stories.gallery-container",
+                "containers": {
+                  "gallery": [
+                    {
+                      "identifier": "living-stories.image"
+                    },
+                    {
+                      "identifier": "living-stories.image"
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "groups": [
+        {
+          "label": "Headers",
+          "components": [
+            "head"
+          ]
+        },
+        {
+          "label": "Image",
+          "components": [
+            "image"
+          ]
+        }
+      ]
+    },
+    {
+      "wrapper": "<div class=\"doc-section wrapper wrapper--default\"></div>",
+      "name": "author",
+      "caption": "Author",
+      "defaultContent": []
+    }
+  ],
+  "defaultLayout": "regular",
+  "defaultComponents": {
+    "paragraph": "paragraph",
+    "image": "image",
+    "html": "free-html"
+  },
+  "imageRatios": {
+    "16:9": {
+      "label": "16:9",
+      "ratio": "16x9"
+    },
+    "1:1": {
+      "label": "1:1",
+      "ratio": "1x1"
+    },
+    "4:3": {
+      "label": "4:3",
+      "ratio": "4x3"
+    },
+    "3:4": {
+      "label": "3:4",
+      "ratio": "3x4"
+    }
+  },
+  "prefilledComponents": {
+    "head": {
+      "author": {
+        "value": "author",
+        "type": "computed"
+      }
+    }
+  },
+  "metadata": [
+    {
+      "identifier": "title",
+      "type": "text",
+      "matches": [
+        "head.title"
+      ],
+      "isEditable": true
+    },
+    {
+      "identifier": "description",
+      "type": "text",
+      "matches": [
+        "head.text",
+        "paragraph.text"
+      ],
+      "isEditable": true
+    },
+    {
+      "identifier": "teaserImage",
+      "type": "image",
+      "matches": [
+        "image.image"
+      ],
+      "isEditable": true,
+      "imageRatios": [
+        "16:9"
+      ]
+    },
+    {
+      "identifier": "authorImage",
+      "type": "image",
+      "matches": [],
+      "isEditable": true,
+      "imageRatios": [
+        "1:1"
+      ]
+    }
+  ],
+  "components": [
+    {
+      "name": "ad-rectangle-resolved",
+      "html": "<div class=\"ad ad--sidebar\"><a href=\"https://www.livingdocs.io\" target=\"_blank\"><img style=\"max-height: 250px\" src=\"/assets/images/ads/rectangles/ad-standard.gif\" alt></a></div>",
+      "label": "Ad half page"
+    },
+    {
+      "name": "ad-leaderboard-resolved",
+      "html": "<div class=\"ad ad--leaderboard\"><a href=\"https://www.livingdocs.io\" target=\"_blank\"><img style=\"max-height: 90px\" src=\"/assets/images/ads/leaderboards/ad-exclusive.gif\" alt></a></div>",
+      "label": "Ad leaderboard"
+    },
+    {
+      "name": "author-container",
+      "html": "<article class=\"article-content\"><div class=\"article-content__body\"><main class=\"article-content__main\" doc-container=\"main\"></main></div></article>",
+      "label": "Author Container",
+      "description": "Main container for authors",
+      "iconUrl": "https://livingdocs-assets.s3.amazonaws.com/magazine-design/assets/images/icons-components/icon_2_columns_uneven.svg"
+    },
+    {
+      "name": "article-container",
+      "html": "<article class=\"article-content\"><header class=\"article-content__header\" doc-container=\"header\"></header><div class=\"article-content__body\"><main class=\"article-content__main\" doc-container=\"main\"></main></div></article>",
+      "label": "Article Container",
+      "description": "Main container for articles",
+      "iconUrl": "https://livingdocs-assets.s3.amazonaws.com/magazine-design/assets/images/icons-components/icon_2_columns_uneven.svg",
+      "directives": {
+        "header": {
+          "allowedChildren": [
+            "head",
+            "head-wide"
+          ],
+          "defaultComponents": {
+            "paragraph": "paragraph",
+            "image": "image",
+            "html": "free-html"
+          }
+        },
+        "main": {
+          "allowedChildren": [
+            "free-html",
+            "iframe",
+            "tweet",
+            "subtitle",
+            "image",
+            "image-row",
+            "image-full-bleed",
+            "bullet-list",
+            "event-list",
+            "paragraph",
+            "separator",
+            "quote",
+            "whole",
+            "teaser-author",
+            "gallery-container",
+            "teaser-gallery-hero",
+            "teaser-gallery",
+            "teaser-card"
+          ],
+          "defaultComponents": {
+            "paragraph": "paragraph",
+            "image": "image",
+            "html": "free-html"
+          }
+        }
+      }
+    },
+    {
+      "name": "featured-container",
+      "html": "<div class=\"feature-container\"><div class=\"feature-container__col\" doc-container=\"column-one\"></div><div class=\"feature-container__col\" doc-container=\"column-two\"></div></div>",
+      "label": "Featured articles",
+      "description": "Container for placing featured articles",
+      "iconUrl": "https://livingdocs-assets.s3.amazonaws.com/magazine-design/assets/images/icons-components/icon_2_columns.svg",
+      "directives": {
+        "column-one": {
+          "allowedChildren": [
+            "teaser-card-featured",
+            "teaser-card-featured-resolved",
+            "teaser-card-featured-small",
+            "teaser-card-featured-small-resolved"
+          ],
+          "defaultComponents": {
+            "paragraph": "paragraph",
+            "image": "image",
+            "html": "free-html"
+          }
+        },
+        "column-two": {
+          "allowedChildren": [
+            "teaser-card-featured",
+            "teaser-card-featured-resolved",
+            "teaser-card-featured-small",
+            "teaser-card-featured-small-resolved"
+          ],
+          "defaultComponents": {
+            "paragraph": "paragraph",
+            "image": "image",
+            "html": "free-html"
+          }
+        }
+      }
+    },
+    {
+      "name": "gallery-container",
+      "html": "<div class=\"gallery-container\" doc-container=\"gallery\"></div>",
+      "label": "Gallery Container",
+      "description": "1 column to add images",
+      "iconUrl": "https://livingdocs-assets.s3.amazonaws.com/magazine-design/assets/images/icons-components/icon_1_column.svg",
+      "directives": {
+        "gallery": {
+          "allowedChildren": [
+            "image"
+          ],
+          "defaultComponents": {
+            "paragraph": "paragraph",
+            "image": "image",
+            "html": "free-html"
+          }
+        }
+      }
+    },
+    {
+      "name": "whole",
+      "html": "<div class=\"container\"><h2 class=\"container__title\" doc-editable=\"title\" doc-optional=\"true\">Section title</h2><div class=\"container-grid container-grid--whole\"><div class=\"container-grid__item\" doc-container=\"column-one\"></div></div></div>",
+      "label": "1 Column",
+      "description": "One large column for content",
+      "iconUrl": "https://livingdocs-assets.s3.amazonaws.com/magazine-design/assets/images/icons-components/icon_1_column.svg",
+      "properties": [
+        "container-style-breath",
+        "container-style-lined"
+      ],
+      "directives": {
+        "column-one": {
+          "allowedChildren": [
+            "free-html",
+            "iframe",
+            "tweet",
+            "section-title",
+            "subtitle",
+            "image",
+            "bullet-list",
+            "paragraph",
+            "separator",
+            "quote",
+            "teaser-card",
+            "teaser-gallery-hero",
+            "teaser-gallery",
+            "ad-leaderboard-resolved"
+          ],
+          "defaultComponents": {
+            "paragraph": "paragraph",
+            "image": "image",
+            "html": "free-html"
+          }
+        }
+      }
+    },
+    {
+      "name": "free-html",
+      "html": "<div doc-html=\"free-html\" class=\"placeholder--free-html\"><div class=\"placeholder__img\"></div></div>",
+      "label": "Free HTML",
+      "description": "Only for developers",
+      "allowedParents": [
+        "article-container",
+        "author-container",
+        "gallery-container",
+        "whole"
+      ],
+      "iconUrl": "https://livingdocs-assets.s3.amazonaws.com/magazine-design/assets/images/icons-components/icon_embed.svg"
+    },
+    {
+      "name": "tweet",
+      "html": "<div doc-html=\"tweet\" class=\"placeholder--twitter\"><div class=\"placeholder__img\"></div></div>",
+      "label": "Tweet",
+      "description": "Embed a tweet",
+      "allowedParents": [
+        "article-container",
+        "author-container",
+        "gallery-container",
+        "whole"
+      ],
+      "iconUrl": "https://livingdocs-assets.s3.amazonaws.com/magazine-design/assets/images/icons-components/icon_twitter.svg"
+    },
+    {
+      "name": "iframe",
+      "html": "<div doc-html=\"iframe\" class=\"placeholder--free-html\"><div class=\"placeholder__img\"></div></div>",
+      "label": "Iframe",
+      "allowedParents": [
+        "whole",
+        "author-container",
+        "article-container",
+        "gallery-container"
+      ],
+      "description": "Embed anything an iframe can do",
+      "iconUrl": "https://livingdocs-assets.s3.amazonaws.com/magazine-design/assets/images/icons-components/icon_embed.svg",
+      "properties": [
+        "position"
+      ]
+    },
+    {
+      "name": "event-list-item",
+      "html": "<li class=\"event-list__item\"><div class=\"event-list__time\"><time doc-editable=\"time\">When? (e.g.: 28.11.18)</time> <span doc-editable=\"keyword\" doc-optional=\"true\">Keyword</span></div><p class=\"event-list__text\" doc-editable=\"text\">What happened?</p></li>",
+      "label": "Event Item",
+      "allowedParents": [
+        "event-list"
+      ]
+    },
+    {
+      "name": "author-head",
+      "html": "<div class=\"author-card author-card--big\"><div class=\"author-card__image\"><img doc-image=\"image\"></div><div class=\"author-card__body\"><h2 class=\"author-card__title\" doc-editable=\"name\">Author name</h2><p doc-editable=\"biography\">Biography</p></div></div>",
+      "label": "Author Head",
+      "description": "Header for author pages",
+      "iconUrl": "https://livingdocs-assets.s3.amazonaws.com/magazine-design/assets/images/icons-components/icon_header_simple.svg"
+    },
+    {
+      "name": "event-list",
+      "html": "<ul doc-container=\"event\" class=\"event-list\"></ul>",
+      "label": "Event",
+      "description": "Timeline events",
+      "allowedParents": [
+        "article-container"
+      ],
+      "iconUrl": "https://livingdocs-assets.s3.amazonaws.com/magazine-design/assets/images/icons-components/icon_unordered_list.svg",
+      "directives": {
+        "event": {
+          "defaultComponents": {
+            "paragraph": "event-list-item"
+          },
+          "defaultContent": [
+            {
+              "component": "event-list-item"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "head-wide",
+      "html": "<div class=\"head-wide\"><div class=\"head-wide__container\"><div class=\"head-wide__img\" doc-image=\"image\"><span class=\"head-wide__caption\" doc-editable=\"caption\"></span></div><div class=\"head-wide__text\"><span class=\"head-wide__flag\" doc-editable=\"flag\" doc-optional=\"true\">Flag</span><h1 class=\"head-wide__title\" doc-editable=\"title\">Title</h1><div class=\"head-wide__meta\"><span doc-editable=\"author\">Author</span><span>,</span> <span doc-editable=\"date\">Date</span></div></div></div></div>",
+      "label": "Wide header",
+      "allowedParents": [
+        "article-container"
+      ],
+      "description": "Header and author line",
+      "iconUrl": "https://livingdocs-assets.s3.amazonaws.com/magazine-design/assets/images/icons-components/icon_header_full.svg"
+    },
+    {
+      "name": "subtitle",
+      "html": "<h2 class=\"subtitle\"><span doc-editable=\"title\">Subtitle</span></h2>",
+      "label": "Subtitle",
+      "allowedParents": [
+        "article-container"
+      ],
+      "description": "A subtitle for articles",
+      "iconUrl": "https://livingdocs-assets.s3.amazonaws.com/magazine-design/assets/images/icons-components/icon_header_simple.svg"
+    },
+    {
+      "name": "image-full-bleed",
+      "html": "<div class=\"image-full-bleed\" doc-image=\"image\"><figcaption class=\"image-full-bleed__caption\" doc-editable=\"caption\" doc-optional=\"true\">Image caption</figcaption></div>",
+      "label": "Full Bleed Image",
+      "description": "Full width image with scrolling effect",
+      "allowedParents": [
+        "article-container",
+        "author-container",
+        "gallery-container",
+        "teaser-author-template",
+        "author-head",
+        "teaser-card-template",
+        "teaser-gallery-hero-template",
+        "teaser-gallery-template"
+      ],
+      "iconUrl": "https://livingdocs-assets.s3.amazonaws.com/magazine-design/assets/images/icons-components/icon_image.svg",
+      "directives": {
+        "image": {
+          "imageRatios": [
+            "16:9",
+            "1:1",
+            "4:3",
+            "3:4"
+          ],
+          "allowOriginalRatio": true
+        }
+      }
+    },
+    {
+      "name": "head",
+      "html": "<div class=\"head\"><span class=\"head__flag\" doc-editable=\"flag\" doc-optional=\"true\">Flag</span><h1 class=\"head__title\" doc-editable=\"title\">Title</h1><p class=\"head__lead\" doc-editable=\"text\">Lead</p><div class=\"head__meta\"><span doc-editable=\"author\">Author</span><span>,</span> <span doc-editable=\"date\">Date</span></div></div>",
+      "label": "Title and Lead",
+      "allowedParents": [
+        "article-container"
+      ],
+      "description": "Header and author line",
+      "iconUrl": "https://livingdocs-assets.s3.amazonaws.com/magazine-design/assets/images/icons-components/icon_header_full.svg"
+    },
+    {
+      "name": "image-row",
+      "html": "<figure class=\"image-row\"><div class=\"layout layout--narrow image-row__grid\"><div class=\"layout__item image-row__item\"><div class=\"image-row__image\" doc-image=\"image1\"></div></div><div class=\"layout__item image-row__item\"><div class=\"image-row__image\" doc-image=\"image2\"></div></div></div><figcaption class=\"image-row__caption\" doc-editable=\"caption\" doc-optional=\"true\">Image caption</figcaption></figure>",
+      "label": "Two Images",
+      "description": "Two images in a row",
+      "allowedParents": [
+        "article-container",
+        "author-container",
+        "gallery-container",
+        "teaser-author-template",
+        "author-head",
+        "teaser-card-template",
+        "teaser-gallery-hero-template",
+        "teaser-gallery-template"
+      ],
+      "iconUrl": "https://livingdocs-assets.s3.amazonaws.com/magazine-design/assets/images/icons-components/icon_image.svg"
+    },
+    {
+      "name": "image",
+      "html": "<figure class=\"image\"><img doc-image=\"image\"><figcaption class=\"image__caption\" doc-editable=\"caption\" doc-optional=\"true\">Image caption</figcaption></figure>",
+      "label": "Image",
+      "properties": [
+        "image-width"
+      ],
+      "description": "Image with caption",
+      "allowedParents": [
+        "article-container",
+        "author-container",
+        "gallery-container",
+        "teaser-author-template",
+        "author-head",
+        "teaser-card-template",
+        "teaser-gallery-hero-template",
+        "teaser-gallery-template"
+      ],
+      "iconUrl": "https://livingdocs-assets.s3.amazonaws.com/magazine-design/assets/images/icons-components/icon_image.svg",
+      "directives": {
+        "image": {
+          "imageRatios": [
+            "16:9",
+            "1:1",
+            "4:3",
+            "3:4"
+          ],
+          "allowOriginalRatio": true
+        }
+      }
+    },
+    {
+      "name": "article-layout-footer",
+      "html": "<div class=\"wrapper wrapper--default\"><nav class=\"page-foot-nav\"><ul class=\"footer-links footer-links--left-aligned\"><li>&#xA9; 2018 Living Stories</li><li><a href=\"mailto:contact@livingdocs.io\">Contact us</a></li><li><a href=\"https://www.livingdocs.io\">Work With us</a></li><li><a href=\"https://github.com/livingdocsIO/blog-example\">Github</a></li></ul><ul class=\"footer-links footer-links--right-aligned\"><li>This is an open-source demo blog built with Livingdocs.</li></ul></nav></div>",
+      "label": "Article layout footer"
+    },
+    {
+      "name": "article-layout-header",
+      "html": "<div><div class=\"wrapper wrapper--default\"><div class=\"meta-bar\"><a class=\"logo\" href=\"/\"><img src=\"/assets/images/li-stories-logo.svg\" alt=\"Living Stories\"></a><nav class=\"meta-nav\"><div class=\"meta-nav__item\"><a href=\"https://github.com/livingdocsIO/blog-example\">Source Code</a></div><div class=\"meta-nav__item meta-nav__item--highlight\"><a href=\"https://edit.livingdocs.io/signup\">Sign Up</a></div></nav></div></div><div class=\"main-nav-container\"><nav class=\"wrapper wrapper--default main-nav\" role=\"navigation\"><div class=\"main-nav__item\"><a href=\"javascript:history.back();\">&lt; Back</a></div></nav></div></div>",
+      "label": "Article layout header"
+    },
+    {
+      "name": "article-layout",
+      "html": "<div><header class=\"page-head\" doc-container=\"header\" role=\"banner\"></header><main class=\"wrapper wrapper--article\" doc-container=\"content\" role=\"main\"></main><footer class=\"page-foot\" doc-container=\"footer\" role=\"footer\"></footer></div>",
+      "label": "Article Layout"
+    },
+    {
+      "name": "default-layout-footer",
+      "html": "<div class=\"wrapper wrapper--default\"><nav class=\"page-foot-nav\"><ul class=\"footer-links footer-links--left-aligned\"><li>&#xA9; 2018 Living Stories</li><li><a href=\"mailto:contact@livingdocs.io\">Contact us</a></li><li><a href=\"https://www.livingdocs.io\">Work With us</a></li><li><a href=\"https://github.com/livingdocsIO/blog-example\">Github</a></li></ul><ul class=\"footer-links footer-links--right-aligned\"><li>This is an open-source demo blog built with Livingdocs.</li></ul></nav></div>",
+      "label": "Default layout footer"
+    },
+    {
+      "name": "default-layout",
+      "html": "<div><header class=\"page-head\" doc-container=\"header\" role=\"banner\"></header><main class=\"wrapper wrapper--default\" doc-container=\"content\" role=\"main\"></main><footer class=\"page-foot\" doc-container=\"footer\" role=\"footer\"></footer></div>",
+      "label": "Default Layout"
+    },
+    {
+      "name": "default-layout-header",
+      "html": "<div><div class=\"wrapper wrapper--default\"><div class=\"meta-bar\"><a class=\"logo\" href=\"/\"><img src=\"/assets/images/li-stories-logo.svg\" alt=\"Living Stories\"></a><nav class=\"meta-nav\"><div class=\"meta-nav__item\"><a href=\"https://github.com/livingdocsIO/blog-example\">Source Code</a></div><div class=\"meta-nav__item meta-nav__item--highlight\"><a href=\"https://edit.livingdocs.io/signup\">Sign Up</a></div></nav></div></div><div class=\"main-nav-container\"><nav class=\"wrapper wrapper--default main-nav\" role=\"navigation\"><div class=\"main-nav__item\"><a href=\"javascript:history.back();\">&lt; Back</a></div></nav></div></div>",
+      "label": "Default layout header"
+    },
+    {
+      "name": "page-layout-footer",
+      "html": "<div class=\"wrapper wrapper--default\"><nav class=\"page-foot-nav\"><ul class=\"footer-links footer-links--left-aligned\"><li>&#xA9; 2018 Living Stories</li><li><a href=\"mailto:contact@livingdocs.io\">Contact us</a></li><li><a href=\"https://www.livingdocs.io\">Work With us</a></li><li><a href=\"https://github.com/livingdocsIO/blog-example\">Github</a></li></ul><ul class=\"footer-links footer-links--right-aligned\"><li>This is an open-source demo blog built with Livingdocs.</li></ul></nav></div>",
+      "label": "Page layout footer"
+    },
+    {
+      "name": "page-layout-header",
+      "html": "<div><div class=\"wrapper wrapper--default\"><div class=\"meta-bar\"><a class=\"logo\" href=\"/\"><img src=\"/assets/images/li-stories-logo.svg\" alt=\"Living Stories\"></a><nav class=\"meta-nav\"><div class=\"meta-nav__item\"><a href=\"https://github.com/livingdocsIO/blog-example\">Source Code</a></div><div class=\"meta-nav__item meta-nav__item--highlight\"><a href=\"https://edit.livingdocs.io/signup\">Sign Up</a></div></nav></div></div><div class=\"main-nav-container\"><nav doc-container=\"header-item\" class=\"wrapper wrapper--default main-nav\" role=\"navigation\"></nav></div></div>",
+      "label": "Page layout header"
+    },
+    {
+      "name": "page-layout",
+      "html": "<div><header class=\"page-head\" doc-container=\"header\" role=\"banner\"></header><main class=\"wrapper wrapper--default\" doc-container=\"content\" role=\"main\"></main><footer class=\"page-foot\" doc-container=\"footer\" role=\"footer\"></footer></div>",
+      "label": "Page Layout"
+    },
+    {
+      "name": "bullet-list-item",
+      "html": "<li doc-editable=\"text\">List item</li>",
+      "label": "Bullet List Item",
+      "allowedParents": [
+        "bullet-list"
+      ]
+    },
+    {
+      "name": "bullet-list",
+      "html": "<ul doc-container=\"list\" class=\"bullet-list\"></ul>",
+      "label": "Bullet List",
+      "description": "A bullet point",
+      "allowedParents": [
+        "article-container"
+      ],
+      "iconUrl": "https://livingdocs-assets.s3.amazonaws.com/magazine-design/assets/images/icons-components/icon_unordered_list.svg",
+      "directives": {
+        "list": {
+          "defaultComponents": {
+            "paragraph": "bullet-list-item"
+          },
+          "defaultContent": [
+            {
+              "component": "bullet-list-item"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "teaser-author-template",
+      "html": "<div class=\"author-card\"><div class=\"author-card__image\"><a href doc-link=\"link\"><img doc-image=\"image\"></a></div><div class=\"author-card__body\"><h5 doc-editable=\"title\"></h5><p doc-editable=\"text\"></p><a href doc-link=\"authorLink\">All work</a></div></div>",
+      "label": "Teaser Author Template"
+    },
+    {
+      "name": "teaser-author",
+      "html": "<div doc-include=\"embed\" class=\"placeholder--teaser-card\"><div class=\"placeholder__img\"></div></div>",
+      "label": "Author",
+      "description": "Teaser to author page",
+      "allowedParents": [
+        "article-container",
+        "author-container",
+        "whole"
+      ],
+      "iconUrl": "https://livingdocs-assets.s3.amazonaws.com/magazine-design/assets/images/icons-components/icon_teaser_author.svg",
+      "directives": {
+        "embed": {
+          "service": "teaser",
+          "defaultParams": {
+            "layout": "author-embed"
+          },
+          "config": {
+            "search": {
+              "displayFilters": [
+                "documentState",
+                "timeRange"
+              ],
+              "defaultQueries": [
+                {
+                  "type": "sortBy",
+                  "value": "relevance"
+                },
+                {
+                  "type": "contentType",
+                  "value": "author"
+                }
+              ],
+              "emptySearchQueries": [
+                {
+                  "type": "sortBy",
+                  "value": "-updated_at"
+                },
+                {
+                  "type": "contentType",
+                  "value": "author"
+                }
+              ]
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "teaser-card-featured-resolved",
+      "html": "<div class=\"teaser-feature-card\"><a class=\"teaser-feature-card__image\" style=\"background-image: url(https://images.unsplash.com/photo-1529148482759-b35b25c5f217?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=1050&amp;q=80)\" href></a><div class=\"teaser-feature-card__body\"><span class=\"teaser-feature-card__flag\">Technology</span><h2 class=\"teaser-feature-card__title\"><a href>Craig Newmark&#x2019;s New Hit List</a></h2><p class=\"teaser-feature-card__text\">The internet mogul was vilified for destroying journalism. Now he&#x2019;s setting out to save it.</p><ul class=\"teaser-feature-card__byline\"><li><a href>Andrew Zaleski</a></li><li>15 minutes ago</li></ul></div></div>",
+      "label": "Featured Teaser"
+    },
+    {
+      "name": "teaser-feature-card-small-resolved",
+      "html": "<div class=\"teaser-feature-card teaser-feature-card--small\"><a class=\"teaser-feature-card__image\" style=\"background-image: url(https://images.unsplash.com/photo-1529148482759-b35b25c5f217?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=crop&amp;w=1050&amp;q=80)\" href></a><div class=\"teaser-feature-card__body\"><span class=\"teaser-feature-card__flag\">Technology</span><h2 class=\"teaser-feature-card__title\"><a href>Craig Newmark&#x2019;s New Hit List</a></h2><ul class=\"teaser-feature-card__byline\"><li><a href>Andrew Zaleski</a></li><li>15 minutes ago</li></ul></div></div>",
+      "label": "Small Feature Teaser"
+    },
+    {
+      "name": "teaser-card-featured-small-template",
+      "html": "<div class=\"teaser-feature-card teaser-feature-card--small\"><a class=\"teaser-feature-card__image\" doc-link=\"link\" doc-image=\"image\"></a><div class=\"teaser-feature-card__body\"><span class=\"teaser-feature-card__flag\" doc-editable=\"flag\" doc-optional=\"true\"></span><h2 class=\"teaser-feature-card__title\"><a href doc-link=\"link2\" doc-editable=\"title\"></a></h2><ul class=\"teaser-feature-card__byline\"><li><a doc-link=\"authorLink\" doc-editable=\"author\"></a></li><li doc-editable=\"date\"></li></ul></div></div>",
+      "label": "Teaser Card: Small"
+    },
+    {
+      "name": "teaser-card-featured-template",
+      "html": "<div class=\"teaser-feature-card\"><a class=\"teaser-feature-card__image\" doc-link=\"link\" doc-image=\"image\"></a><div class=\"teaser-feature-card__body\"><span class=\"teaser-feature-card__flag\" doc-editable=\"flag\" doc-optional=\"true\"></span><h2 class=\"teaser-feature-card__title\"><a href doc-link=\"link2\" doc-editable=\"title\"></a></h2><p class=\"teaser-feature-card__text\" doc-editable=\"text\"></p><ul class=\"teaser-feature-card__byline\"><li><a doc-link=\"authorLink\" doc-editable=\"author\"></a></li><li doc-editable=\"date\"></li></ul></div></div>",
+      "label": "Teaser Card"
+    },
+    {
+      "name": "teaser-card-featured-small",
+      "html": "<div doc-include=\"teaser\" class=\"placeholder--teaser-card\"><div class=\"placeholder__img\"></div></div>",
+      "label": "Featured Card: Small",
+      "allowedParents": [
+        "featured-container"
+      ],
+      "description": "Featured teaser with image",
+      "iconUrl": "https://livingdocs-assets.s3.amazonaws.com/magazine-design/assets/images/icons-components/icon_teaser_with_image.svg",
+      "directives": {
+        "teaser": {
+          "service": "teaser",
+          "defaultParams": {
+            "layout": "card-featured-small"
+          },
+          "config": {
+            "search": {
+              "displayFilters": [
+                "documentState",
+                "timeRange"
+              ],
+              "defaultQueries": [
+                {
+                  "type": "sortBy",
+                  "value": "relevance"
+                },
+                {
+                  "type": "contentType",
+                  "value": "regular"
+                }
+              ],
+              "emptySearchQueries": [
+                {
+                  "type": "sortBy",
+                  "value": "-updated_at"
+                },
+                {
+                  "type": "contentType",
+                  "value": "regular"
+                }
+              ]
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "teaser-card-featured",
+      "html": "<div doc-include=\"teaser\" class=\"placeholder--teaser-card\"><div class=\"placeholder__img\"></div></div>",
+      "label": "Featured Card",
+      "allowedParents": [
+        "featured-container"
+      ],
+      "description": "Featured teaser with image",
+      "iconUrl": "https://livingdocs-assets.s3.amazonaws.com/magazine-design/assets/images/icons-components/icon_teaser_with_image.svg",
+      "directives": {
+        "teaser": {
+          "service": "teaser",
+          "defaultParams": {
+            "layout": "card-featured"
+          },
+          "config": {
+            "search": {
+              "displayFilters": [
+                "documentState",
+                "timeRange"
+              ],
+              "defaultQueries": [
+                {
+                  "type": "sortBy",
+                  "value": "relevance"
+                },
+                {
+                  "type": "contentType",
+                  "value": "regular"
+                }
+              ],
+              "emptySearchQueries": [
+                {
+                  "type": "sortBy",
+                  "value": "-updated_at"
+                },
+                {
+                  "type": "contentType",
+                  "value": "regular"
+                }
+              ]
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "teaser-card-template",
+      "html": "<div class=\"teaser-card\"><a class=\"teaser-card__image\" href doc-link=\"link\" doc-image=\"image\"></a><div class=\"teaser-card__body\"><span class=\"teaser-card__flag\" doc-editable=\"flag\" doc-optional=\"true\"></span><h2 class=\"teaser-card__title\"><a href doc-link=\"link2\" doc-editable=\"title\"></a></h2><p class=\"teaser-card__text\" doc-editable=\"text\"></p><ul class=\"teaser-card__byline\"><li>by <a doc-link=\"authorLink\" doc-editable=\"author\"></a></li><li doc-editable=\"date\"></li></ul></div></div>",
+      "label": "Teaser Card"
+    },
+    {
+      "name": "teaser-card-resolved",
+      "html": "<div class=\"teaser-card\"><figure class=\"teaser-card__figure\"><a href><img class=\"teaser-card__image\" src=\"https://livingdocs.imgix.net/2016/10/28/1456273f-b26a-4ca1-9de7-cebd2eb41dd9.jpeg?rect=0,86.5,1200,675\"></a></figure><div class=\"teaser-card__body\"><span class=\"teaser-card__flag\">Culture</span><h2 class=\"teaser-card__title\"><a href>The art of TV series</a></h2><p class=\"teaser-card__text\">But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born.</p><ul class=\"teaser-card__byline\"><li>by <a href>Kelly Swanson</a></li><li>15 minutes ago</li></ul></div></div>",
+      "label": "Teaser Card"
+    },
+    {
+      "name": "teaser-card",
+      "html": "<div doc-include=\"teaser\" class=\"placeholder--teaser-card\"><div class=\"placeholder__img\"></div></div>",
+      "label": "Card",
+      "allowedParents": [
+        "article-container",
+        "author-container",
+        "whole"
+      ],
+      "description": "Standard teaser with image",
+      "iconUrl": "https://livingdocs-assets.s3.amazonaws.com/magazine-design/assets/images/icons-components/icon_teaser_with_image.svg",
+      "directives": {
+        "teaser": {
+          "service": "teaser",
+          "defaultParams": {
+            "layout": "card"
+          },
+          "config": {
+            "search": {
+              "displayFilters": [
+                "documentState",
+                "timeRange"
+              ],
+              "defaultQueries": [
+                {
+                  "type": "sortBy",
+                  "value": "relevance"
+                },
+                {
+                  "type": "contentType",
+                  "value": "regular"
+                }
+              ],
+              "emptySearchQueries": [
+                {
+                  "type": "sortBy",
+                  "value": "-updated_at"
+                },
+                {
+                  "type": "contentType",
+                  "value": "regular"
+                }
+              ]
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "teaser-gallery-hero-template",
+      "html": "<div class=\"teaser-gallery\"><div class=\"teaser-hero teaser-hero--video\"><div class=\"teaser-hero__header\" doc-image=\"image\"><div class=\"teaser-hero__header-text\"><h2 class=\"teaser-hero__title\" doc-editable=\"title\"></h2><span class=\"teaser-hero__label\"><svg class=\"teaser-hero__icon teaser-hero__icon--photo\" viewbox=\"0 0 24 24\"><path fill=\"#000000\" d=\"M4,4H7L9,2H15L17,4H20A2,2 0 0,1 22,6V18A2,2 0 0,1 20,20H4A2,2 0 0,1 2,18V6A2,2 0 0,1 4,4M12,7A5,5 0 0,0 7,12A5,5 0 0,0 12,17A5,5 0 0,0 17,12A5,5 0 0,0 12,7M12,9A3,3 0 0,1 15,12A3,3 0 0,1 12,15A3,3 0 0,1 9,12A3,3 0 0,1 12,9Z\"/></svg> Photos</span></div></div><p class=\"teaser-hero__text\" doc-editable=\"text\"></p></div><div class=\"teaser-gallery__images\" doc-container=\"images\"></div><div class=\"pswp\" tabindex=\"-1\" role=\"dialog\" aria-hidden=\"true\"><div class=\"pswp__bg\"></div><div class=\"pswp__scroll-wrap\"><div class=\"pswp__container\"><div class=\"pswp__item\"></div><div class=\"pswp__item\"></div><div class=\"pswp__item\"></div></div><div class=\"pswp__ui pswp__ui--hidden\"><div class=\"pswp__top-bar\"><div class=\"pswp__counter\"></div><button class=\"pswp__button pswp__button--close\" title=\"Close (Esc)\"></button> <button class=\"pswp__button pswp__button--share\" title=\"Share\"></button> <button class=\"pswp__button pswp__button--fs\" title=\"Toggle fullscreen\"></button> <button class=\"pswp__button pswp__button--zoom\" title=\"Zoom in/out\"></button><div class=\"pswp__preloader\"><div class=\"pswp__preloader__icn\"><div class=\"pswp__preloader__cut\"><div class=\"pswp__preloader__donut\"></div></div></div></div></div><div class=\"pswp__share-modal pswp__share-modal--hidden pswp__single-tap\"><div class=\"pswp__share-tooltip\"></div></div><button class=\"pswp__button pswp__button--arrow--left\" title=\"Previous (arrow left)\"></button> <button class=\"pswp__button pswp__button--arrow--right\" title=\"Next (arrow right)\"></button><div class=\"pswp__caption\"><div class=\"pswp__caption__center\"></div></div></div></div></div></div>",
+      "label": "Image Gallery Hero Teaser Template"
+    },
+    {
+      "name": "teaser-gallery-hero",
+      "html": "<div doc-include=\"teaser\" class=\"placeholder--teaser-gallery\"><div class=\"placeholder__img\"></div></div>",
+      "label": "Image Gallery Hero",
+      "description": "Large gallery teaser",
+      "allowedParents": [
+        "article-container",
+        "author-container",
+        "whole"
+      ],
+      "iconUrl": "https://livingdocs-assets.s3.amazonaws.com/magazine-design/assets/images/icons-components/icon_teaser_with_image.svg",
+      "directives": {
+        "teaser": {
+          "service": "teaser",
+          "defaultParams": {
+            "layout": "gallery-hero"
+          },
+          "config": {
+            "search": {
+              "displayFilters": [
+                "documentState",
+                "timeRange"
+              ],
+              "defaultQueries": [
+                {
+                  "type": "sortBy",
+                  "value": "relevance"
+                },
+                {
+                  "type": "contentType",
+                  "value": "gallery"
+                }
+              ],
+              "emptySearchQueries": [
+                {
+                  "type": "sortBy",
+                  "value": "-updated_at"
+                },
+                {
+                  "type": "contentType",
+                  "value": "gallery"
+                }
+              ]
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "list-item",
+      "html": "<p class=\"list-item\" doc-editable=\"text\">An item</p>",
+      "label": "List Item",
+      "properties": [
+        "unordered"
+      ]
+    },
+    {
+      "name": "paragraph",
+      "html": "<p doc-editable=\"text\">Tell your story&#x2026;</p>",
+      "label": "Paragraph",
+      "description": "Your main writing tool",
+      "properties": [
+        "paragraph-style-lead"
+      ],
+      "allowedParents": [
+        "article-container"
+      ],
+      "iconUrl": "https://livingdocs-assets.s3.amazonaws.com/magazine-design/assets/images/icons-components/icon_text.svg"
+    },
+    {
+      "name": "separator",
+      "html": "<hr class=\"separator\">",
+      "label": "Separator",
+      "description": "A vertical line",
+      "allowedParents": [
+        "article-container"
+      ],
+      "iconUrl": "https://livingdocs-assets.s3.amazonaws.com/magazine-design/assets/images/icons-components/icon_separator.svg"
+    },
+    {
+      "name": "quote",
+      "html": "<blockquote class=\"quote\"><p class=\"quote__text\" doc-editable=\"text\">Quoted text</p><footer class=\"quote__source\">&#x2014; <span doc-editable=\"author\" doc-optional=\"true\">Author</span></footer></blockquote>",
+      "label": "Quote",
+      "properties": [
+        "large"
+      ],
+      "allowedParents": [
+        "article-container"
+      ],
+      "description": "Large text in quotes",
+      "iconUrl": "https://livingdocs-assets.s3.amazonaws.com/magazine-design/assets/images/icons-components/icon_quote.svg"
+    },
+    {
+      "name": "teaser-gallery-hero-resolved",
+      "html": "<div class=\"teaser-gallery\"><div class=\"teaser-hero teaser-hero--video\"><div class=\"teaser-hero__header\" style=\"background-image: url(&apos;https://livingdocs.imgix.net/2016/10/28/f29a0498-620e-43a6-90d5-e0e8f7bd5e35.jpeg?rect=728,132,1638,922&apos;)\"><div class=\"teaser-hero__header-text\"><h2 class=\"teaser-hero__title\">The delicate art of the TV series finale</h2><span class=\"teaser-hero__label\"><svg class=\"teaser-hero__icon teaser-hero__icon--photo\" viewbox=\"0 0 24 24\"><path fill=\"#000000\" d=\"M4,4H7L9,2H15L17,4H20A2,2 0 0,1 22,6V18A2,2 0 0,1 20,20H4A2,2 0 0,1 2,18V6A2,2 0 0,1 4,4M12,7A5,5 0 0,0 7,12A5,5 0 0,0 12,17A5,5 0 0,0 17,12A5,5 0 0,0 12,7M12,9A3,3 0 0,1 15,12A3,3 0 0,1 12,15A3,3 0 0,1 9,12A3,3 0 0,1 12,9Z\"/></svg> Photos</span></div></div><p class=\"teaser-hero__text\">But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born and I will give you a complete account of the system, and expound the actual teachings of the great explorer of the truth, the master-builder of human happiness.</p></div><div class=\"teaser-gallery__images\"><figure class=\"image\"><img class=\"resrc\" src=\"https://livingdocs.imgix.net/2016/10/28/26303a92-2cf7-425e-b5b3-15d5b54c5564.jpeg?rect=256,66,1075,605\"><figcaption class=\"image__caption\">The Tale of the Princess Kaguya</figcaption></figure><figure class=\"image\"><img class=\"resrc\" src=\"https://livingdocs.imgix.net/2016/10/28/1456273f-b26a-4ca1-9de7-cebd2eb41dd9.jpeg?rect=0,86.5,1200,675\"><figcaption class=\"image__caption\">The Whale Hunt</figcaption></figure><figure class=\"image\"><img class=\"resrc\" src=\"https://livingdocs.imgix.net/2016/10/28/67fbd400-4961-4d2f-8846-221a1351f415.png?rect=0,64.125,1500,843.75\"><figcaption class=\"image__caption\">The Night of Taneyamagahara</figcaption></figure></div><div class=\"pswp\" tabindex=\"-1\" role=\"dialog\" aria-hidden=\"true\"><div class=\"pswp__bg\"></div><div class=\"pswp__scroll-wrap\"><div class=\"pswp__container\"><div class=\"pswp__item\"></div><div class=\"pswp__item\"></div><div class=\"pswp__item\"></div></div><div class=\"pswp__ui pswp__ui--hidden\"><div class=\"pswp__top-bar\"><div class=\"pswp__counter\"></div><button class=\"pswp__button pswp__button--close\" title=\"Close (Esc)\"></button> <button class=\"pswp__button pswp__button--share\" title=\"Share\"></button> <button class=\"pswp__button pswp__button--fs\" title=\"Toggle fullscreen\"></button> <button class=\"pswp__button pswp__button--zoom\" title=\"Zoom in/out\"></button><div class=\"pswp__preloader\"><div class=\"pswp__preloader__icn\"><div class=\"pswp__preloader__cut\"><div class=\"pswp__preloader__donut\"></div></div></div></div></div><div class=\"pswp__share-modal pswp__share-modal--hidden pswp__single-tap\"><div class=\"pswp__share-tooltip\"></div></div><button class=\"pswp__button pswp__button--arrow--left\" title=\"Previous (arrow left)\"></button> <button class=\"pswp__button pswp__button--arrow--right\" title=\"Next (arrow right)\"></button><div class=\"pswp__caption\"><div class=\"pswp__caption__center\"></div></div></div></div></div></div>",
+      "label": "Image Gallery Hero Teaser Resolved"
+    }
+  ]
+}
