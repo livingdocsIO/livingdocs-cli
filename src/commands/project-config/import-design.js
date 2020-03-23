@@ -22,11 +22,13 @@ class ImportDesignCommand extends Command {
     const {dist, designUri} = this.parse(ImportDesignCommand).flags
     assertDistFolder(dist)
 
-    const config = await readChannelConfig({source: dist})
-      .catch((err) => {
-        this.log(chalk.red('✕ Parsing Failed'))
-        throw err
-      })
+    let config
+    try {
+      config = await readChannelConfig({source: dist})
+    } catch (err) {
+      this.log(chalk.red('✕ Parsing Failed'))
+      throw err
+    }
 
     const design = await downloadDesign(designUri)
     const designV2 = parseDesignV2(design)

@@ -14,12 +14,14 @@ module.exports = function (design) {
         css: _.map(_.get(design, 'assets.css', []), (css) => {
           if (css.match(/(http(s)?:)?\/\//)) return css
           const basePath = `${_.get(design, 'assets.basePath')}/`
+          // eslint-disable-next-line
           const url = new URL(css, basePath)
           return url.href
         }),
         js: _.map(_.get(design, 'assets.js', []), (css) => {
           if (css.match(/(http(s)?:)?\/\//)) return css
           const basePath = `${_.get(design, 'assets.basePath')}/`
+          // eslint-disable-next-line
           const url = new URL(css, basePath)
           return url.href
         })
