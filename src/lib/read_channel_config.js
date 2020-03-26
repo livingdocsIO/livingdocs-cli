@@ -29,6 +29,8 @@ function loadChannelConfig (source) {
     const channelConfig = require(rootFolder)
     return {rootFolder, channelConfig}
   } catch (err) {
-    throw new Error(`Could not load channel config from path '${source}'`)
+    throw new Error(`Could not load channel config from path '${source}'.
+      Error Stack: ${err.stack}
+      Error: ${err.message}`)
   }
 }
