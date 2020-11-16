@@ -31,7 +31,7 @@ class ImportDesignCommand extends Command {
     }
 
     const design = await downloadDesign(designUri)
-    const designV2 = parseDesignV2(design)
+    const designV2 = parseDesignV2(design, this.log)
 
     config.components = designV2.components
     config.designSettings = designV2.designSettings

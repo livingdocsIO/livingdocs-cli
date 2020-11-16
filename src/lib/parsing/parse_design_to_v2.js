@@ -1,11 +1,11 @@
 const chalk = require('chalk')
 const dedent = require('dedent')
 const _ = require('lodash')
-const {parseComponent} = require('../framework/livingdocs-framework')
+const {parseComponent, design: designCache} = require('../framework/livingdocs-framework')
 
-module.exports = function (design) {
+module.exports = function (design, log) {
   if (design.v === 2) return design // already v2, nothing to do
-
+  const parsedDesignV1 = designCache.load(design)
   const parsedDesign = {
     v: 2,
     designSettings: {
@@ -67,18 +67,18 @@ module.exports = function (design) {
     }, ['directives'])
     if (!_.isEmpty(componentV1.directives)) {
       try {
-        const {structure} = parseComponent(componentV1)
+        const {structure} = parseComponent(componentV1, parsedDesignV1)
         const cleaned = []
         structure.directives.each((d) => {
           cleaned.push(_.omit(d, ['index']))
         })
         componentV2.directives = cleaned
       } catch (e) {
-        chalk.red(dedent`
+        log(chalk.red(dedent`
           ✕ Component Parse Error
             "${componentV1.name}":
             ${e.message}`
-        )
+        ))
       }
     }
 
