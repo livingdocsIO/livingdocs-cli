@@ -26,7 +26,18 @@ module.exports = function (design) {
           return url.href
         })
       },
-      componentGroups: design.groups,
+      componentGroups: _.reduce(design.layouts, (acc, layout) => {
+        _.each(layout.groups, group => {
+          const name = _.toLower(group.label)
+          let groupEntry = _.find(acc, g => g.name === name)
+          if (!groupEntry) {
+            groupEntry = {label: group.label, name, components: []}
+            acc.push(groupEntry)
+          }
+          groupEntry.components = _.union(groupEntry.components, group.components)
+        })
+        return acc
+      }, []),
       defaultComponents: design.defaultComponents,
       fieldExtractor: design.metadata,
       prefilledComponents: _.map(_.keys(design.prefilledComponents), (k) => {
