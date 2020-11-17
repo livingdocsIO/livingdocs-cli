@@ -37,11 +37,18 @@ class ImportDesignCommand extends Command {
     config.components = designV2.components
     config.designSettings = designV2.designSettings
 
-    // write wrapper on each content-type
     _.each(config.contentTypes, (ct) => {
+      // write wrapper on each content-type
       const matchingLayout = _.find(design.layouts, l => l.name === ct.handle)
       if (matchingLayout) ct.editorWrapper = matchingLayout.wrapper
       else ct.editorWrapper = design.wrapper
+      // write components on content-type
+      if (matchingLayout) {
+        ct.components = _.reduce(matchingLayout.groups, (acc, g) => {
+          acc = _.union(acc, _.map(g.components, c => ({name: c})))
+          return acc
+        }, [])
+      }
     })
 
     await writeConfig({
