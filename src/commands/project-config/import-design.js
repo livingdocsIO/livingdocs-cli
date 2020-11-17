@@ -49,6 +49,8 @@ class ImportDesignCommand extends Command {
           return acc
         }, [])
       }
+      // write default content on content-type
+      if (matchingLayout) ct.defaultContent = matchingLayout.defaultContent || []
     })
 
     await writeConfig({
