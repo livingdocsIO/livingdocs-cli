@@ -70,6 +70,14 @@ module.exports = function (design, log) {
         const {structure} = parseComponent(componentV1, parsedDesignV1)
         const cleaned = []
         structure.directives.each((d) => {
+          // change the properties property of a doc-style directive to an array
+          if (d.type === 'style') {
+            d.properties = _.keys(d.properties)
+          }
+          // change the image ratios to just contain the name
+          if (d.type === 'image') {
+            d.imageRatios = _.map(d.imageRatios, i => i.name)
+          }
           cleaned.push(_.omit(d, ['index']))
         })
         componentV2.directives = cleaned
