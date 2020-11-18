@@ -1,6 +1,7 @@
 const chalk = require('chalk')
 const dedent = require('dedent')
 const _ = require('lodash')
+const prettifyHtml = require('prettify-html')
 const {parseComponent, design: designCache} = require('../framework/livingdocs-framework')
 
 module.exports = function (design, log) {
@@ -81,6 +82,7 @@ module.exports = function (design, log) {
           cleaned.push(_.omit(d, ['index']))
         })
         componentV2.directives = cleaned
+        componentV2.html = prettifyHtml(componentV2.html)
       } catch (e) {
         log(chalk.red(dedent`
           ✕ Component Parse Error
