@@ -1,11 +1,12 @@
 const chalk = require('chalk')
 const dedent = require('dedent')
 const _ = require('lodash')
-const {parseComponent} = require('../framework/livingdocs-framework')
+const prettifyHtml = require('prettify-html')
+const {parseComponent, design: designCache} = require('../framework/livingdocs-framework')
 
-module.exports = function (design) {
+module.exports = function (design, log) {
   if (design.v === 2) return design // already v2, nothing to do
-
+  const parsedDesignV1 = designCache.load(design)
   const parsedDesign = {
     v: 2,
     designSettings: {
@@ -26,7 +27,18 @@ module.exports = function (design) {
           return url.href
         })
       },
-      componentGroups: design.groups,
+      componentGroups: _.reduce(design.layouts, (acc, layout) => {
+        _.each(layout.groups, group => {
+          const name = _.toLower(group.label)
+          let groupEntry = _.find(acc, g => g.name === name)
+          if (!groupEntry) {
+            groupEntry = {label: group.label, name, components: []}
+            acc.push(groupEntry)
+          }
+          groupEntry.components = _.union(groupEntry.components, group.components)
+        })
+        return acc
+      }, []),
       defaultComponents: design.defaultComponents,
       fieldExtractor: design.metadata,
       prefilledComponents: _.map(_.keys(design.prefilledComponents), (k) => {
@@ -56,18 +68,27 @@ module.exports = function (design) {
     }, ['directives'])
     if (!_.isEmpty(componentV1.directives)) {
       try {
-        const {structure} = parseComponent(componentV1)
+        const {structure} = parseComponent(componentV1, parsedDesignV1)
         const cleaned = []
         structure.directives.each((d) => {
+          // change the properties property of a doc-style directive to an array
+          if (d.type === 'style') {
+            d.properties = _.keys(d.properties)
+          }
+          // change the image ratios to just contain the name
+          if (d.type === 'image') {
+            d.imageRatios = _.map(d.imageRatios, i => i.name)
+          }
           cleaned.push(_.omit(d, ['index']))
         })
         componentV2.directives = cleaned
+        componentV2.html = prettifyHtml(componentV2.html)
       } catch (e) {
-        chalk.red(dedent`
+        log(chalk.red(dedent`
           ✕ Component Parse Error
             "${componentV1.name}":
             ${e.message}`
-        )
+        ))
       }
     }
 

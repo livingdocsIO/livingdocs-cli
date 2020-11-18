@@ -1,4 +1,5 @@
 const chalk = require('chalk')
+const _ = require('lodash')
 const {Command} = require('@oclif/command')
 
 const sharedFlags = require('../../lib/cli/shared_flags')
@@ -31,10 +32,28 @@ class ImportDesignCommand extends Command {
     }
 
     const design = await downloadDesign(designUri)
-    const designV2 = parseDesignV2(design)
+    const designV2 = parseDesignV2(design, this.log)
 
     config.components = designV2.components
     config.designSettings = designV2.designSettings
+
+    if (design.v !== 2) {
+      _.each(config.contentTypes, (ct) => {
+        // write wrapper on each content-type
+        const matchingLayout = _.find(design.layouts, l => l.name === ct.handle)
+        if (matchingLayout) ct.editorWrapper = matchingLayout.wrapper
+        else ct.editorWrapper = design.wrapper
+        // write components on content-type
+        if (matchingLayout) {
+          ct.components = _.reduce(matchingLayout.groups, (acc, g) => {
+            acc = _.union(acc, _.map(g.components, c => ({name: c})))
+            return acc
+          }, [])
+        }
+        // write default content on content-type
+        if (matchingLayout) ct.defaultContent = matchingLayout.defaultContent || []
+      })
+    }
 
     await writeConfig({
       destination: dist,

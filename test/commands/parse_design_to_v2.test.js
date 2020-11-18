@@ -8,7 +8,7 @@ describe('parse design v1 to v2', function () {
     .stdout()
     .tmpdir()
     .it('parse a v1 design to v2', (ctx) => {
-      const designV2 = parseDesign(designV1)
+      const designV2 = parseDesign(designV1, console.log)
       // concatenate the basePath with relative paths in assets
       expect(designV2.designSettings.assets).to.deep.equal({
         basePath: 'https://cdn-jbxbgjz.livingdocs.io/designs/living-stories/0.0.2',
