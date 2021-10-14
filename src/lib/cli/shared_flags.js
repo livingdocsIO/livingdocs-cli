@@ -95,6 +95,18 @@ module.exports = {
         return process.env.LI_DESIGN_URI
       }
     }
+  }),
+  username: flags.string({
+    char: 'us',
+    description: 'username for login',
+    default ({options, flags: givenFlags}) {
+      const sessionConfig = getCliConfig(givenFlags)
+      if (sessionConfig) {
+        return sessionConfig.username
+      } else {
+        return process.env.LI_USERNAME
+      }
+    }
   })
 }
 
