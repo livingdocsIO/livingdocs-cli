@@ -3,14 +3,14 @@ const path = require('path')
 const log = require('npmlog')
 const {promisify} = require('util')
 const _each = require('lodash/each')
-const axios = require('axios')
 const {default: PromiseQueue} = require('p-queue')
-
+const Glob = require('glob')
 const {concat} = require('./utils')
+const FormData = require('form-data')
 
 module.exports = {
-  async uploadAssets ({folderPath, host, token}) {
-    return await uploadAssets({folderPath, host, token})
+  async uploadAssets ({folderPath, host, token, design, client}) {
+    return await uploadAssets({folderPath, host, token, design, client})
   }
 }
 
@@ -24,7 +24,7 @@ function allFilesCb (folderPath, callback) {
 
 const allFiles = promisify(allFilesCb)
 
-async function uploadAssets ({folderPath, host, token}) {
+async function uploadAssets ({folderPath, host, token, design, client}) {
   const files = await allFiles(folderPath)
 
   if (!files.length) {
@@ -38,7 +38,7 @@ async function uploadAssets ({folderPath, host, token}) {
   _each(assets, (relativePath) => {
     queue.add(() => {
       const filePath = path.join(folderPath, relativePath)
-      return uploadAsset({relativePath, filePath, host, token})
+      return uploadAsset({relativePath, filePath, host, token, design, client})
     }).then(() => {
       log.info(`Asset Uploaded (${relativePath}).`)
     }).catch((err) => {
@@ -53,19 +53,24 @@ async function uploadAssets ({folderPath, host, token}) {
     })
 }
 
-async function uploadAsset ({relativePath, filePath, host, token}) {
-  const assetApiPath = '/api/v2/content-configuration/cli-draft/assets'
-
-  const response = await axios({
+async function uploadAsset ({relativePath, filePath, host, token, design, client}) {
+  const assetApiPath = `/designs/${design.name}/${design.version}/assets`
+  const url = `${concat(host, assetApiPath)}`
+  const form = new FormData()
+  const stream = fs.createReadStream(filePath)
+  console.log(relativePath)
+  form.append('path', relativePath)
+  form.append('file', stream)
+  const headers = {
+    Authorization: `Bearer ${token}`,
+    ...form.getHeaders()
+  }
+  const response = await client({
     method: 'post',
-    url: `${concat(host, assetApiPath)}`,
-    headers: {
-      Authorization: `Bearer ${token}`
-    },
-    formData: {
-      path: relativePath,
-      file: fs.createReadStream(filePath)
-    }
+    url: url,
+    data: form,
+    headers: headers,
+    withCredentials: true
   })
 
   return response

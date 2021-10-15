@@ -1,11 +1,14 @@
 const parseDesignV2 = require('./parsing/parse_design_to_v2')
 const parseComponents = require('./parsing/parse_components')
+const {uploadAssets} = require('./upload_assets')
 const path = require('path')
-const {wrapper} = require('axios-cookiejar-support')
-const {CookieJar} = require('tough-cookie')
 const axios = require('axios')
+const {CookieJar} = require('tough-cookie')
 const jar = new CookieJar()
-const client = wrapper(axios.create({jar}))
+const axiosInstance = axios.create({jar})
+const {requestInterceptor, responseInterceptor} = require('./utils/request_interceptor')
+axiosInstance.interceptors.request.use(requestInterceptor)
+axiosInstance.interceptors.response.use(responseInterceptor)
 
 const fs = require('fs-extra')
 
@@ -13,14 +16,12 @@ module.exports = {
   async publishDesign ({designFolder, host, username, password}) {
     const token = await authenticate({username, password, host})
     const design = await buildDesign({designFolder})
-    return await publishDesign({design, host, token})
+    await publishDesign({design, host, token})
+    await uploadAssets({folderPath: designFolder, host, token, design, client: axiosInstance})
   }
 }
 
 // todo:
-// - read config.json
-// - go through files in components
-// - add all files to design json
 async function buildDesign ({designFolder}) {
   const {components} = await parseComponents({src: designFolder, templatesDirectory: 'components'})
   const spacing = 2
@@ -36,14 +37,15 @@ async function buildDesign ({designFolder}) {
 }
 
 // todo:
-// - upload assets
-// - publish design
 // - check on name and version
 // - implement force update
-async function publishDesign ({design, host, token}) {
+// - add basepath to json
+// - add property to transform to V2
+async function publishDesign ({design, host, token, forceUpdate}) {
   const designV2 = parseDesignV2(design, this.log)
-  const designUrl = `${host}/designs/${designV2.name}/${designV2.version}`
-  const response = await client({
+  const forceUpdateValue = `?force=${forceUpdate ? 'true' : 'false'}`
+  const designUrl = `${host}/designs/${designV2.name}/${designV2.version}${forceUpdateValue}`
+  const response = await axiosInstance({
     withCredentials: true,
     method: 'put',
     url: designUrl,
@@ -52,12 +54,12 @@ async function publishDesign ({design, host, token}) {
     },
     data: design
   })
-  console.log(response)
+
   return response
 }
 
 async function authenticate ({host, username, password}) {
-  const res = await client({
+  const res = await axiosInstance({
     withCredentials: true,
     method: 'post',
     url: `${host}/auth/local/login`,
