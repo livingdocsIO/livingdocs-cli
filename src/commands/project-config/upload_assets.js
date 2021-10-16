@@ -1,9 +1,28 @@
 // WIP
 const url = require('url')
 const {Command, flags} = require('@oclif/command')
-
+const {cli} = require('cli-ux')
+const {authenticate} = require('../../lib/utils/li_authenticate')
 const sharedFlags = require('../../lib/cli/shared_flags')
-const liApi = require('../../lib/api/livingdocs_api')
+const {uploadAssets} = require('../../lib/upload_assets')
+
+const description = `Upload assets to your project`
+const commandFlags = {
+  host: sharedFlags.host,
+  username: sharedFlags.username,
+  assets: flags.string({
+    char: 'a',
+    description: 'The folder where you asset files are located.'
+  }),
+  designName: flags.string({
+    char: 'dn',
+    description: 'The design name of the assets to upload'
+  }),
+  designVersion: flags.string({
+    char: 'dv',
+    description: 'The design version of the assets to upload'
+  })
+}
 
 class UploadAssetsCommand extends Command {
   static hidden = true
@@ -18,7 +37,8 @@ class UploadAssetsCommand extends Command {
   }
 
   async run () {
-    const {token, host, assets} = this.parse(UploadAssetsCommand).flags
+    const {host, assets, username, designName, designVersion} =
+      this.parse(UploadAssetsCommand).flags
 
     const origin = this.parseUrl(host).origin
     if (!origin) return
@@ -26,10 +46,21 @@ class UploadAssetsCommand extends Command {
       this.error(`missing param assets`)
     }
 
-    await liApi.uploadAssets({
+    let inputUser
+    if (!username) {
+      inputUser = await cli.prompt('What is your username?')
+    }
+
+    // mask input after enter is pressed
+    const password = await cli.prompt('What is your password?', {type: 'hide'})
+    const {token, axiosInstance} =
+      await authenticate({username: username || inputUser, password, host})
+    await uploadAssets({
       folderPath: assets,
       host: origin,
-      token
+      token,
+      design: {name: designName, version: designVersion},
+      axiosInstance
     })
   }
 
