@@ -2,7 +2,7 @@
 const url = require('url')
 const {Command, flags} = require('@oclif/command')
 const {cli} = require('cli-ux')
-const {authenticate} = require('../../lib/utils/li_authenticate')
+const liApi = require('../../lib/api/livingdocs_api')
 const sharedFlags = require('../../lib/cli/shared_flags')
 const {uploadAssets} = require('../../lib/upload_assets')
 
@@ -54,7 +54,7 @@ class UploadAssetsCommand extends Command {
     // mask input after enter is pressed
     const password = await cli.prompt('What is your password?', {type: 'hide'})
     const {token, axiosInstance} =
-      await authenticate({username: username || inputUser, password, host})
+      await liApi.authenticate({username: username || inputUser, password, host})
     await uploadAssets({
       folderPath: assets,
       host: origin,
