@@ -9,21 +9,20 @@ const writeConfig = require('../../lib/write_channel_config')
 const errorReporter = require('../../lib/api/error_reporter')
 const assertDistFolder = require('../../lib/cli/assert_dist_folder')
 
-const description = `Download a project configuration`
-const commandFlags = {
-  project: sharedFlags.project,
-  env: sharedFlags.env,
-  token: {...sharedFlags.configReadToken, required: true},
-  host: {...sharedFlags.host, required: true},
-  dist: sharedFlags.dist,
-  format: flags.string({
-    options: ['js', 'js/html', 'json'],
-    description: 'The format of the files written.',
-    dependsOn: ['dist']
-  })
-}
-
 class DownloadCommand extends Command {
+  static description = `Download a project configuration`
+  static flags = {
+    project: sharedFlags.project,
+    env: sharedFlags.env,
+    token: {...sharedFlags.configReadToken, required: true},
+    host: {...sharedFlags.host, required: true},
+    dist: sharedFlags.dist,
+    format: flags.string({
+      options: ['js', 'js/html', 'json'],
+      description: 'The format of the files written.',
+      dependsOn: ['dist']
+    })
+  }
 
   async run () {
     const {token, host, dist, format} = this.parse(DownloadCommand).flags
@@ -74,6 +73,4 @@ class DownloadCommand extends Command {
   }
 }
 
-DownloadCommand.description = description
-DownloadCommand.flags = commandFlags
 module.exports = DownloadCommand

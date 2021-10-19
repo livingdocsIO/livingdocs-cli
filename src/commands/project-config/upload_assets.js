@@ -5,17 +5,16 @@ const {Command, flags} = require('@oclif/command')
 const sharedFlags = require('../../lib/cli/shared_flags')
 const liApi = require('../../lib/api/livingdocs_api')
 
-const description = `Upload assets to your project`
-const commandFlags = {
-  token: {...sharedFlags.configWriteToken, required: true},
-  host: sharedFlags.host,
-  assets: flags.string({
-    char: 'a',
-    description: 'The folder where you asset files are located.'
-  })
-}
-
 class UploadAssetsCommand extends Command {
+  static description = `Upload assets to your project`
+  static flags = {
+    token: {...sharedFlags.configWriteToken, required: true},
+    host: sharedFlags.host,
+    assets: flags.string({
+      char: 'a',
+      description: 'The folder where you asset files are located.'
+    })
+  }
 
   async run () {
     const {token, host, assets} = this.parse(UploadAssetsCommand).flags
@@ -44,6 +43,4 @@ class UploadAssetsCommand extends Command {
 
 }
 
-UploadAssetsCommand.description = description
-UploadAssetsCommand.flags = commandFlags
 module.exports = UploadAssetsCommand

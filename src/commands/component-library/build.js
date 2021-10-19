@@ -5,16 +5,16 @@ const sharedFlags = require('../../lib/cli/shared_flags')
 const parseComponents = require('../../lib/parsing/parse_components')
 const writeComponentLibrary = require('../../lib/write_component_library')
 
-const description = `Build a Component Library JSON file`
-const commandFlags = {
-  src: flags.string({
-    char: 's',
-    description: 'The folder with your .html component templates'
-  }),
-  dist: sharedFlags.dist
-}
-
 class BuildCommand extends Command {
+  static description = `Build a Component Library JSON file`
+
+  static flags = {
+    src: flags.string({
+      char: 's',
+      description: 'The folder with your .html component templates'
+    }),
+    dist: sharedFlags.dist
+  }
 
   async run () {
     const {src, dist} = this.parse(BuildCommand).flags
@@ -41,6 +41,4 @@ class BuildCommand extends Command {
 
 }
 
-BuildCommand.description = description
-BuildCommand.flags = commandFlags
 module.exports = BuildCommand

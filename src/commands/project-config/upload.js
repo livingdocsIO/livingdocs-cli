@@ -7,24 +7,23 @@ const errorReporter = require('../../lib/api/error_reporter')
 const resultReporter = require('../../lib/api/channel_config_result_reporter')
 const readChannelConfig = require('../../lib/read_channel_config')
 
-const description = `Upload a ChannelConfig into a draft for your project`
-const commandFlags = {
-  project: sharedFlags.project,
-  env: sharedFlags.env,
-  token: {...sharedFlags.configWriteToken, required: true},
-  host: {...sharedFlags.host, required: true},
-  dist: flags.string({
-    char: 'd',
-    required: true,
-    description: 'The folder or filename to the channelConfig.'
-  }),
-  draftName: flags.string({
-    description: 'The name of the draft the config will be saved under.',
-    required: true
-  })
-}
-
 class UploadCommand extends Command {
+  static description = `Upload a ChannelConfig into a draft for your project`
+  static flags = {
+    project: sharedFlags.project,
+    env: sharedFlags.env,
+    token: {...sharedFlags.configWriteToken, required: true},
+    host: {...sharedFlags.host, required: true},
+    dist: flags.string({
+      char: 'd',
+      required: true,
+      description: 'The folder or filename to the channelConfig.'
+    }),
+    draftName: flags.string({
+      description: 'The name of the draft the config will be saved under.',
+      required: true
+    })
+  }
 
   async run () {
     const {token, host, dist} = this.parse(UploadCommand).flags
@@ -45,6 +44,4 @@ class UploadCommand extends Command {
   }
 }
 
-UploadCommand.description = description
-UploadCommand.flags = commandFlags
 module.exports = UploadCommand

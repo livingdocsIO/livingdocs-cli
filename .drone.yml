@@ -1,4 +1,5 @@
 ---
+type: docker
 kind: pipeline
 name: default
 
@@ -7,17 +8,17 @@ clone:
 
 steps:
 - name: eslint
-  image: marcbachmann/eslint:4.19.1
+  image: marcbachmann/eslint:8.0.1
   environment:
     GH_TOKEN:
       from_secret: GH_TOKEN
 
-- name: test-node-10
-  image: node:10-alpine
+- name: test-node-14
+  image: livingdocs/node:14
   commands: ["npm ci", "npm run test -s"]
 
-- name: test-node-12
-  image: node:12-alpine
+- name: test-node-16
+  image: node:16-alpine
   commands: ["rm -Rf node_modules", "npm ci", "npm run test -s"]
 
 - name: release
@@ -32,6 +33,6 @@ trigger:
   event: [push]
 ---
 kind: signature
-hmac: ea6dec4cbe6f6221d3b5b938721f4872f28761cefe9edaf63a353aa1ae6d8da2
+hmac: 4eb7d63ca8826a5001d9d0136c3eee5fcf0ffc91b4faa00410ff908f6023a41a
 
 ...

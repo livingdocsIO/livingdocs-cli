@@ -5,13 +5,12 @@ const sharedFlags = require('../../lib/cli/shared_flags')
 const liApi = require('../../lib/api/livingdocs_api')
 const errorReporter = require('../../lib/api/error_reporter')
 
-const description = `List project configuration drafts`
-const commandFlags = {
-  token: {...sharedFlags.configReadToken, required: true},
-  host: sharedFlags.host
-}
-
 class DraftsCommand extends Command {
+  static description = `List project configuration drafts`
+  static flags = {
+    token: {...sharedFlags.configReadToken, required: true},
+    host: sharedFlags.host
+  }
 
   async run () {
     const {token, host} = this.parse(DraftsCommand).flags
@@ -32,6 +31,4 @@ class DraftsCommand extends Command {
   }
 }
 
-DraftsCommand.description = description
-DraftsCommand.flags = commandFlags
 module.exports = DraftsCommand
