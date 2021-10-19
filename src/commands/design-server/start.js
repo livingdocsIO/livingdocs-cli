@@ -4,29 +4,28 @@ const {Command, flags} = require('@oclif/command')
 
 const loadDesigns = require('../../lib/load_designs')
 
-const description = `Start a design server for development`
-
-const commandFlags = {
-  port: flags.integer({
-    char: 'p',
-    description: 'The port of the design-server.',
-    default: 9030
-  }),
-  dist: flags.string({
-    char: 'd',
-    description: 'The folder to load designs from.',
-    required: true
-  }),
-  assets: flags.string({
-    description: 'Asset folder to serve static files.'
-  }),
-  basePath: flags.string({
-    description: 'The basePath to set in `assets.basePath`.'
-  }),
-  verbose: flags.boolean()
-}
-
 class DesignServerCommand extends Command {
+  static description = `Start a design server for development`
+
+  static flags = {
+    port: flags.integer({
+      char: 'p',
+      description: 'The port of the design-server.',
+      default: 9030
+    }),
+    dist: flags.string({
+      char: 'd',
+      description: 'The folder to load designs from.',
+      required: true
+    }),
+    assets: flags.string({
+      description: 'Asset folder to serve static files.'
+    }),
+    basePath: flags.string({
+      description: 'The basePath to set in `assets.basePath`.'
+    }),
+    verbose: flags.boolean()
+  }
 
   async run () {
     let host
@@ -126,6 +125,4 @@ function setupStaticFolder ({fastify, assets}) {
   })
 }
 
-DesignServerCommand.description = description
-DesignServerCommand.flags = commandFlags
 module.exports = DesignServerCommand

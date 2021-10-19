@@ -6,20 +6,19 @@ const errorReporter = require('../../lib/api/error_reporter')
 const resultReporter = require('../../lib/api/channel_config_result_reporter')
 const readChannelConfig = require('../../lib/read_channel_config')
 
-const description = `See what would be updated in a publish command`
-const commandFlags = {
-  project: sharedFlags.project,
-  env: sharedFlags.env,
-  token: {...sharedFlags.configWriteToken, required: true},
-  host: {...sharedFlags.host, required: true},
-  dist: {
-    ...sharedFlags.dist,
-    required: true,
-    description: 'The folder or filename to the channelConfig.'
-  }
-}
-
 class PlanCommand extends Command {
+  static description = `See what would be updated in a publish command`
+  static flags = {
+    project: sharedFlags.project,
+    env: sharedFlags.env,
+    token: {...sharedFlags.configWriteToken, required: true},
+    host: {...sharedFlags.host, required: true},
+    dist: {
+      ...sharedFlags.dist,
+      required: true,
+      description: 'The folder or filename to the channelConfig.'
+    }
+  }
 
   async run () {
     const {token, host, dist} = this.parse(PlanCommand).flags
@@ -35,6 +34,4 @@ class PlanCommand extends Command {
   }
 }
 
-PlanCommand.description = description
-PlanCommand.flags = commandFlags
 module.exports = PlanCommand

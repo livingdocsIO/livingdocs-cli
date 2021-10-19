@@ -1,10 +1,13 @@
 const chalk = require('chalk')
 const {Command} = require('@oclif/command')
 
-const description = `Print current CLI configuration`
-const commandFlags = {}
+const defaults = {
+  LI_HOST: 'http://localhost:9090'
+}
 
 class ListConfigCommand extends Command {
+  static description = `Print current CLI configuration`
+  static flags = {}
 
   async run () {
     this.printVar(`LI_HOST`)
@@ -39,10 +42,4 @@ function getVar (key) {
   }
 }
 
-const defaults = {
-  LI_HOST: 'http://localhost:9090'
-}
-
-ListConfigCommand.description = description
-ListConfigCommand.flags = commandFlags
 module.exports = ListConfigCommand
