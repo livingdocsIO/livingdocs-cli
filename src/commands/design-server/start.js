@@ -85,9 +85,20 @@ class DesignServerCommand extends Command {
         return
       }
 
-      designConfig.assets = designConfig.assets || {}
-      const defaultBasePath = `${host}/designs/${designName}/${version}`
-      designConfig.assets.basePath = basePath || defaultBasePath
+      const designBasePath = basePath || `${host}/designs/${designName}/${version}`
+      if (
+        typeof designConfig.assets === 'object' &&
+        !designConfig.assets.basePath
+      ) {
+        designConfig.assets.basePath = designBasePath
+      }
+
+      if (
+        typeof designConfig.designSettings?.assets === 'object' &&
+        !designConfig.designSettings.assets.basePath
+      ) {
+        designConfig.designSettings.assets.basePath = designBasePath
+      }
 
       reply.send(designConfig)
     })
