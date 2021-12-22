@@ -1,7 +1,7 @@
 {
   "name": "livingdocs-cli",
   "description": "Livingdocs Command Line Utility",
-  "version": "0.0.0",
+  "version": "2.0.0",
   "author": "Livingdocs AG",
   "repository": "livingdocsIO/livingdocs-cli",
   "homepage": "https://github.com/livingdocsIO/livingdocs-cli",
@@ -36,6 +36,7 @@
     "inquirer": "^7.0.0",
     "javascript-stringify": "^2.0.0",
     "js-beautify": "^1.10.2",
+    "js-yaml": "^4.1.0",
     "lodash": "^4.17.21",
     "nanoid": "^2.1.0",
     "npmlog": "^4.1.2",
