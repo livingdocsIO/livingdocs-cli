@@ -1,4 +1,6 @@
 const fs = require('fs-extra')
+const yaml = require('js-yaml')
+
 const _get = require('lodash/get')
 
 let cliConfig
@@ -31,7 +33,8 @@ function readFile () {
   const filepath = `${workingDir}/.livingdocs-cli`
 
   if (fs.existsSync(filepath)) {
-    const config = fs.readJsonSync(filepath)
+
+    const config = yaml.load(fs.readFileSync(filepath))
     return config
 
   }
