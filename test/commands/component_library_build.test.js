@@ -50,7 +50,7 @@ describe('component-library:build', function () {
       expect(svgComponent).to.deep.equal({
         name: 'with_svg',
         label: 'with_svg',
-        html: `<div class="header"><h1 class="title" li-text="text"></h1><svg width="0" height="0" style="position:absolute"><symbol viewBox="0 0 7 11" id="test"><path d="M1 1 H2"/><path d="M3 3 V2"/></symbol></svg></div>` // eslint-disable-line max-len
+        html: `<div class="header"><h1 class="title" li-text="text"></h1><svg width="0" height="0" style="position:absolute"><symbol viewBox="0 0 7 11" id="test"><path d="M1 1 H2"></path><path d="M3 3 V2"></path></symbol></svg></div>` // eslint-disable-line max-len
       })
 
       const templateComponent = _find(data.components, {name: 'template_format'})
