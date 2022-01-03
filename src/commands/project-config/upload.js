@@ -8,6 +8,7 @@ const resultReporter = require('../../lib/api/channel_config_result_reporter')
 const readChannelConfig = require('../../lib/read_channel_config')
 
 class UploadCommand extends Command {
+  static hidden = true
   static description = `Upload a ChannelConfig into a draft for your project`
   static flags = {
     project: sharedFlags.project,

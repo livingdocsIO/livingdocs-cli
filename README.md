@@ -21,12 +21,9 @@ $ livingdocs-cli --help
 * [`livingdocs-cli design-server:start`](#livingdocs-cli-design-serverstart)
 * [`livingdocs-cli help [COMMAND]`](#livingdocs-cli-help-command)
 * [`livingdocs-cli project-config:download`](#livingdocs-cli-project-configdownload)
-* [`livingdocs-cli project-config:drafts`](#livingdocs-cli-project-configdrafts)
 * [`livingdocs-cli project-config:import-design`](#livingdocs-cli-project-configimport-design)
 * [`livingdocs-cli project-config:plan`](#livingdocs-cli-project-configplan)
 * [`livingdocs-cli project-config:publish`](#livingdocs-cli-project-configpublish)
-* [`livingdocs-cli project-config:upload`](#livingdocs-cli-project-configupload)
-* [`livingdocs-cli project-config:upload_assets`](#livingdocs-cli-project-configupload_assets)
 
 ## `livingdocs-cli component-library:build`
 
@@ -118,24 +115,6 @@ OPTIONS
 
 _See code: [src/commands/project-config/download.js](https://github.com/livingdocsIO/livingdocs-cli/blob/v2.0.0/src/commands/project-config/download.js)_
 
-## `livingdocs-cli project-config:drafts`
-
-List project configuration drafts
-
-```
-USAGE
-  $ livingdocs-cli project-config:drafts
-
-OPTIONS
-  -h, --host=host    [default: http://localhost:9090] The livingdocs host.
-                     Can be set by the environment variable 'LI_HOST'.
-
-  -t, --token=token  (required) Access Token for your project (needs `public-api:config:read` permission).
-                     Can be set by the environment variable 'LI_TOKEN'.
-```
-
-_See code: [src/commands/project-config/drafts.js](https://github.com/livingdocsIO/livingdocs-cli/blob/v2.0.0/src/commands/project-config/drafts.js)_
-
 ## `livingdocs-cli project-config:import-design`
 
 Import a design into a given project configuration
@@ -198,49 +177,4 @@ OPTIONS
 ```
 
 _See code: [src/commands/project-config/publish.js](https://github.com/livingdocsIO/livingdocs-cli/blob/v2.0.0/src/commands/project-config/publish.js)_
-
-## `livingdocs-cli project-config:upload`
-
-Upload a ChannelConfig into a draft for your project
-
-```
-USAGE
-  $ livingdocs-cli project-config:upload
-
-OPTIONS
-  -d, --dist=dist        (required) The folder or filename to the channelConfig.
-  -e, --env=env          If used configuration options are loaded from .livingdocs-cli file.
-
-  -h, --host=host        (required) [default: http://localhost:9090] The livingdocs host.
-                         Can be set by the environment variable 'LI_HOST'.
-
-  -p, --project=project  If used configuration options are loaded from .livingdocs-cli file.
-
-  -t, --token=token      (required) Access Token for your project (needs `public-api:config:write` permission).
-                         Can be set by the environment variable 'LI_TOKEN'.
-
-  --draftName=draftName  (required) The name of the draft the config will be saved under.
-```
-
-_See code: [src/commands/project-config/upload.js](https://github.com/livingdocsIO/livingdocs-cli/blob/v2.0.0/src/commands/project-config/upload.js)_
-
-## `livingdocs-cli project-config:upload_assets`
-
-Upload assets to your project
-
-```
-USAGE
-  $ livingdocs-cli project-config:upload_assets
-
-OPTIONS
-  -a, --assets=assets  The folder where you asset files are located.
-
-  -h, --host=host      [default: http://localhost:9090] The livingdocs host.
-                       Can be set by the environment variable 'LI_HOST'.
-
-  -t, --token=token    (required) Access Token for your project (needs `public-api:config:write` permission).
-                       Can be set by the environment variable 'LI_TOKEN'.
-```
-
-_See code: [src/commands/project-config/upload_assets.js](https://github.com/livingdocsIO/livingdocs-cli/blob/v2.0.0/src/commands/project-config/upload_assets.js)_
 <!-- commandsstop -->
