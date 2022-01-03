@@ -1,33 +1,20 @@
-livingdocs-cli
-==============
-
-Livingdocs Command Line Interface
-
 [![oclif](https://img.shields.io/badge/cli-oclif-brightgreen.svg)](https://oclif.io)
 [![Version](https://img.shields.io/npm/v/livingdocs-cli.svg)](https://npmjs.org/package/livingdocs-cli)
-[![Codecov](https://codecov.io/gh/livingdocsIO/livingdocs-cli/branch/master/graph/badge.svg)](https://codecov.io/gh/livingdocsIO/livingdocs-cli)
 [![Downloads/week](https://img.shields.io/npm/dw/livingdocs-cli.svg)](https://npmjs.org/package/livingdocs-cli)
 [![License](https://img.shields.io/npm/l/livingdocs-cli.svg)](https://github.com/livingdocsIO/livingdocs-cli/blob/master/package.json)
 
-<!-- toc -->
-* [Usage](#usage)
-* [Commands](#commands)
-<!-- tocstop -->
-# Usage
-<!-- usage -->
+# livingdocs-cli
+
+Livingdocs Command Line Interface
+
+## Setup
+
 ```sh-session
 $ npm install -g livingdocs-cli
-$ livingdocs-cli COMMAND
-running command...
-$ livingdocs-cli (-v|--version|version)
-livingdocs-cli/2.0.0 darwin-x64 node-v16.13.0
-$ livingdocs-cli --help [COMMAND]
-USAGE
-  $ livingdocs-cli COMMAND
-...
+$ livingdocs-cli --help
 ```
-<!-- usagestop -->
-# Commands
+
+# Commands Reference
 <!-- commands -->
 * [`livingdocs-cli component-library:build`](#livingdocs-cli-component-librarybuild)
 * [`livingdocs-cli config:print`](#livingdocs-cli-configprint)

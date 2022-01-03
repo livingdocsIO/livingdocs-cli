@@ -109,7 +109,7 @@ test
   .command('config:print'.split(' '))
 ```
 
-## Updating the readme
+## Updating the command references in the readme
 
 ```bash
 npx oclif-dev readme
