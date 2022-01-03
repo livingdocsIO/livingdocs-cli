@@ -10,7 +10,7 @@ const readChannelConfig = require('../../lib/read_channel_config')
 const updateRevisionNumber = require('../../lib/update_revision_number')
 
 class PublishCommand extends Command {
-  static description = `Publish a ChannelConfig to your project`
+  static description = `Publish a project configuration to your project`
   static flags = {
     project: sharedFlags.project,
     env: sharedFlags.env,
@@ -19,7 +19,7 @@ class PublishCommand extends Command {
     dist: {
       ...sharedFlags.dist,
       required: true,
-      description: 'The folder or filename to the channelConfig.'
+      description: 'The folder or filename to the project config.'
     }
   }
 

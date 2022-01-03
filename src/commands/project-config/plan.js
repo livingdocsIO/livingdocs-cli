@@ -16,7 +16,7 @@ class PlanCommand extends Command {
     dist: {
       ...sharedFlags.dist,
       required: true,
-      description: 'The folder or filename to the channelConfig.'
+      description: 'The folder or filename to the project config.'
     }
   }
 
