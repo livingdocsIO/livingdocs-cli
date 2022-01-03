@@ -79,7 +79,6 @@ Example usage:
 npx livingdocs-cli project-config:download --project my-project --env dev
 ```
 
-
 ## Running the tests
 
 ```bash
@@ -93,7 +92,7 @@ For example to parse and build the test fixtures manually:
 ./bin/run component-library:build --src test/fixtures/component-library
 ```
 
-## Test helpers
+## Test helpers
 
 Here are some of the available test helpers:
 
@@ -107,16 +106,14 @@ test
   // setting environment variables
   .env({LI_FOO: 'BAR'})
   // run a command (the same as if you would in the terminal)
-  .command('cli-config:info'.split(' '))
+  .command('config:print'.split(' '))
 ```
-
 
 ## Updating the readme
 
 ```bash
 npx oclif-dev readme
 ```
-
 
 ## Testing manually locally within another repository
 
@@ -136,7 +133,6 @@ livingdocs-cli component-library:build --src component-library
 `const {expect, test} = require('@oclif/test')`
 
 The `test` variable from oclif is based on fancy-test: https://github.com/jdxcode/fancy-test
-
 
 ## Further Notes
 
