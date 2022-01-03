@@ -24,7 +24,7 @@ class PublishCommand extends Command {
   }
 
   async run () {
-    const {token, host, dist, env} = this.parse(PublishCommand).flags
+    const {token, host, dist} = this.parse(PublishCommand).flags
     const reportError = errorReporter(this.log, host, {verbose: true})
 
     const config = await readChannelConfig({source: dist})
@@ -33,17 +33,20 @@ class PublishCommand extends Command {
         throw err
       })
 
-    // safety check for production environment
-    if (env === 'production') {
-      const answers = await inquirer.prompt([{
-        name: 'continue',
-        type: 'confirm',
-        default: false,
-        message: `Are you sure to publish to production?`
-      }])
+    await liApi.plan({host, token, channelConfig: config})
+      .then((result) => {
+        resultReporter(result, this.log)
+      })
+      .catch(reportError)
 
-      if (!answers.continue) return
-    }
+    const answers = await inquirer.prompt([{
+      name: 'continue',
+      type: 'confirm',
+      default: false,
+      message: `Are you sure to publish to production?`
+    }])
+
+    if (!answers.continue) return
 
     await liApi.publish({host, token, channelConfig: config})
       .then((result) => {
