@@ -9,9 +9,9 @@ Livingdocs Command Line Interface
 
 ## Setup
 
-```sh-session
-$ npm install -g livingdocs-cli
-$ livingdocs-cli --help
+```bash
+npm install -g livingdocs-cli
+livingdocs-cli --help
 ```
 
 # Commands Reference
@@ -141,7 +141,7 @@ USAGE
   $ livingdocs-cli project-config:plan
 
 OPTIONS
-  -d, --dist=dist        (required) The folder or filename to the channelConfig.
+  -d, --dist=dist        (required) The folder or filename to the project config.
   -e, --env=env          If used configuration options are loaded from .livingdocs-cli file.
 
   -h, --host=host        (required) [default: http://localhost:9090] The livingdocs host.
@@ -157,14 +157,14 @@ _See code: [src/commands/project-config/plan.js](https://github.com/livingdocsIO
 
 ## `livingdocs-cli project-config:publish`
 
-Publish a ChannelConfig to your project
+Publish a project configuration to your project
 
 ```
 USAGE
   $ livingdocs-cli project-config:publish
 
 OPTIONS
-  -d, --dist=dist        (required) The folder or filename to the channelConfig.
+  -d, --dist=dist        (required) The folder or filename to the project config.
   -e, --env=env          If used configuration options are loaded from .livingdocs-cli file.
 
   -h, --host=host        (required) [default: http://localhost:9090] The livingdocs host.
