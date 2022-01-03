@@ -6,6 +6,7 @@ const liApi = require('../../lib/api/livingdocs_api')
 const errorReporter = require('../../lib/api/error_reporter')
 
 class DraftsCommand extends Command {
+  static hidden = true
   static description = `List project configuration drafts`
   static flags = {
     token: {...sharedFlags.configReadToken, required: true},

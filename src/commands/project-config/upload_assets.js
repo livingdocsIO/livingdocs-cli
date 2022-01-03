@@ -6,6 +6,7 @@ const sharedFlags = require('../../lib/cli/shared_flags')
 const liApi = require('../../lib/api/livingdocs_api')
 
 class UploadAssetsCommand extends Command {
+  static hidden = true
   static description = `Upload assets to your project`
   static flags = {
     token: {...sharedFlags.configWriteToken, required: true},
