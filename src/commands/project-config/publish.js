@@ -33,11 +33,15 @@ class PublishCommand extends Command {
         throw err
       })
 
+    let ok = false
     await liApi.plan({host, token, channelConfig: config})
       .then((result) => {
+        ok = result.ok
         resultReporter(result, this.log)
       })
       .catch(reportError)
+
+    if (!ok) return
 
     const answers = await inquirer.prompt([{
       name: 'continue',
