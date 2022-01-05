@@ -1,13 +1,38 @@
 const chalk = require('chalk')
 const dedent = require('dedent')
+const diff = require('diff')
 
 module.exports = function (result, log) {
   function info (msg) { log(msg) }
   function success (msg) { log(chalk.green(msg)) }
   function error (msg) { log(chalk.red(msg)) }
+  function print (obj) { return JSON.stringify(obj, null, 2) }
+
+  function colorUpdate (entry) {
+    if (entry.added) return chalk.green(entry.value)
+    if (entry.removed) return chalk.red(entry.value)
+    return entry.value
+  }
+
+  function calcDiff (patch) {
+
+    if (patch.action === 'update') {
+      const items = diff.diffJson(patch.valueBefore || '', patch.value)
+      return items.reduce((str, item) => {
+        return `${str}${colorUpdate(item)}`
+      }, '')
+    } else if (patch.action === 'remove') {
+      return patch.valueBefore
+        ? chalk.red(print(patch.valueBefore))
+        : ''
+    } else {
+      return chalk.green(print(patch.value))
+    }
+  }
 
   if (result.ok) {
-    if (!result.patches || result.patches.length === 0) {
+    const count = result.patches.length
+    if (!result.patches || count === 0) {
       info(dedent`
         ✓ No Changes.
       `)
@@ -16,9 +41,8 @@ module.exports = function (result, log) {
         info(dedent`
           Plan
           ----
-          ✓ Everything looks ok.
         `)
-        info(`\nThese patches will be applied (${result.patches.length}):`)
+        info(`\nPatches (${count}):\n`)
       } else {
         success(dedent`
           ✓ Success. Channel Config Published.
@@ -30,9 +54,13 @@ module.exports = function (result, log) {
       }
 
       for (const patch of result.patches) {
-        info(` • [${patch.action}] ${patch.pointer}`)
+        info(`• [${patch.action}] ${patch.pointer}`)
+        info(`${calcDiff(patch)}`)
       }
-      info(``)
+
+
+      if (count === 1) info(`\n✓ The patch looks good.\n`)
+      else info(`\n✓ All ${count} patches look good.\n`)
     }
 
     return
