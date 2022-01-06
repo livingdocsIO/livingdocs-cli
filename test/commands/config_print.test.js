@@ -10,7 +10,7 @@ describe('config:print', function () {
     .command('config:print'.split(' '))
     .it('prints the config when no env vars are set', (ctx) => {
       expect(ctx.stdout).to.contain('LI_HOST  (source: default value)')
-      expect(ctx.stdout).to.contain('LI_TOKEN  (source: not set)')
+      expect(ctx.stdout).to.contain('LI_TOKEN')
     })
 
   test
@@ -43,7 +43,8 @@ describe('config:print (.livingdcos-cli)', function () {
           local:
             host: 'https://dotfile:9071'
             token: 'dotfile-local-token-yaml'
-            distFolder: './project-config/local'
+            sourceFolder: './project-config/local'
+            distFolder: './dist/local'
       `
       await fs.writeFile('./.livingdocs-cli', content)
     })
