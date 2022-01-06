@@ -14,6 +14,10 @@ npm install -g livingdocs-cli
 livingdocs-cli --help
 ```
 
+## Documentation
+
+[Livingdocs CLI documentation](https://docs.livingdocs.io/reference-docs/cli)
+
 # Commands Reference
 <!-- commands -->
 * [`livingdocs-cli component-library:build`](#livingdocs-cli-component-librarybuild)
