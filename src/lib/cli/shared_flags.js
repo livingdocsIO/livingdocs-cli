@@ -66,6 +66,19 @@ module.exports = {
       }
     }
   }),
+  source: flags.string({
+    char: 's',
+    description: 'The folder or filename to the project config.',
+
+    default ({options, flags: givenFlags}) {
+      const sessionConfig = getCliConfig(givenFlags)
+      if (sessionConfig) {
+        return sessionConfig.sourceFolder
+      } else {
+        return process.env.LI_SOURCE_FOLDER
+      }
+    }
+  }),
   designUri: flags.string({
     char: 'u',
     description: 'URL of the design to import',

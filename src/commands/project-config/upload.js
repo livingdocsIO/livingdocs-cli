@@ -15,11 +15,10 @@ class UploadCommand extends Command {
     env: sharedFlags.env,
     token: {...sharedFlags.configWriteToken, required: true},
     host: {...sharedFlags.host, required: true},
-    dist: flags.string({
-      char: 'd',
-      required: true,
-      description: 'The folder or filename to the channelConfig.'
-    }),
+    source: {
+      ...sharedFlags.source,
+      required: true
+    },
     draftName: flags.string({
       description: 'The name of the draft the config will be saved under.',
       required: true
@@ -27,10 +26,10 @@ class UploadCommand extends Command {
   }
 
   async run () {
-    const {token, host, dist} = this.parse(UploadCommand).flags
+    const {token, host, source} = this.parse(UploadCommand).flags
     const reportError = errorReporter(this.log, host, {verbose: true})
 
-    const config = await readChannelConfig({source: dist})
+    const config = await readChannelConfig({source})
       .catch((err) => {
         this.log(chalk.red('✕ Parsing Failed'))
         throw err

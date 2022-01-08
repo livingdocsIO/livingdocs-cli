@@ -21,13 +21,15 @@ class ListConfigCommand extends Command {
 
     this.printVar(`LI_HOST`, 'host', sessionConfig)
     this.printVar(`LI_TOKEN`, 'token', sessionConfig)
+    this.printVar(`LI_SOURCE_FOLDER`, 'sourceFolder', sessionConfig)
     this.printVar(`LI_DIST_FOLDER`, 'distFolder', sessionConfig)
   }
 
   printVar (name, prop, sessionConfig) {
     const varObj = getVar(name, prop, sessionConfig)
 
-    this.log(chalk.green(`${name}`), chalk.gray(` (source: ${varObj.source})`))
+    if (varObj.source) this.log(chalk.green(`${name}`), chalk.gray(` (source: ${varObj.source})`))
+    else this.log(chalk.green(`${name}`))
     this.log(chalk.gray(`${varObj.value}\n`))
   }
 }
@@ -51,7 +53,7 @@ function getVar (key, prop, sessionConfig) {
   } else {
     return {
       value: '[undefined]',
-      source: 'not set'
+      source: undefined
     }
   }
 }

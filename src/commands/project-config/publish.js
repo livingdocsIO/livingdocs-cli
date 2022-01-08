@@ -16,18 +16,17 @@ class PublishCommand extends Command {
     env: sharedFlags.env,
     token: {...sharedFlags.configWriteToken, required: true},
     host: {...sharedFlags.host, required: true},
-    dist: {
-      ...sharedFlags.dist,
-      required: true,
-      description: 'The folder or filename to the project config.'
-    }
+    source: {...sharedFlags.source},
+    dist: {...sharedFlags.dist}
   }
 
   async run () {
-    const {token, host, dist} = this.parse(PublishCommand).flags
+    const {token, host, source, dist} = this.parse(PublishCommand).flags
     const reportError = errorReporter(this.log, host, {verbose: true})
 
-    const config = await readChannelConfig({source: dist})
+    if (!source && !dist) throw new Error('Missing a source param')
+
+    const config = await readChannelConfig({source: source || dist})
       .catch((err) => {
         this.log(chalk.red('✕ Parsing Failed'))
         throw err
@@ -56,7 +55,7 @@ class PublishCommand extends Command {
       .then((result) => {
         resultReporter(result, this.log)
         updateRevisionNumber({
-          source: dist,
+          source: source || dist,
           revisionNumberBefore: config.$baseRevision,
           revisionNumber: result.revisionNumber
         })
