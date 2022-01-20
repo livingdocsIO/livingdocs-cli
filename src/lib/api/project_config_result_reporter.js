@@ -2,7 +2,7 @@ const chalk = require('chalk')
 const dedent = require('dedent')
 const diff = require('diff')
 
-module.exports = function (result, log) {
+module.exports = function ({result, log, omitPatches}) {
   function info (msg) { log(msg) }
   function success (msg) { log(chalk.green(msg)) }
   function error (msg) { log(chalk.red(msg)) }
@@ -31,39 +31,34 @@ module.exports = function (result, log) {
   }
 
   if (result.ok) {
-    const count = result.patches.length
-    if (!result.patches || count === 0) {
+    const count = result.patches?.length
+    if (!count) {
       info(dedent`
         ✓ No Changes.
       `)
-    } else {
-      if (result.plan) {
-        info(dedent`
-          Plan
-          ----
-        `)
-        info(`\nPatches (${count}):\n`)
-      } else {
-        success(dedent`
-          ✓ Success. Channel Config Published.
-
-            Revision: ${result.revisionNumber}
-            DesignVersion: ${result.designVersion || '-'}
-        `)
-        info(`\nApplied Patches (${result.patches.length}):`)
-      }
+    } else if (result.plan) {
+      info(dedent`
+        Plan
+        ----
+      `)
+      info(`\nPatches (${count}):\n`)
 
       for (const patch of result.patches) {
         info(`• [${patch.action}] ${patch.pointer}`)
         info(`${calcDiff(patch)}`)
       }
 
-
       if (count === 1) info(`\n✓ The patch looks good.\n`)
       else info(`\n✓ All ${count} patches look good.\n`)
-    }
+    } else {
+      success(dedent`
+        ✓ Success. Channel Config Published.
 
-    return
+          Revision: ${result.revisionNumber}
+          DesignVersion: ${result.designVersion || '-'}
+      `)
+      info(`\nApplied Patches (${result.patches.length}):`)
+    }
   }
 
   if (result.schemaErrors) {
