@@ -13,6 +13,10 @@ class DesignServerCommand extends Command {
       description: 'The port of the design-server.',
       default: 9030
     }),
+    address: flags.string({
+      char: 'a',
+      description: 'The address of the design-server.'
+    }),
     dist: flags.string({
       char: 'd',
       description: 'The folder to load designs from.',
@@ -29,7 +33,8 @@ class DesignServerCommand extends Command {
 
   async run () {
     let host
-    const {port, verbose, dist, assets, basePath} = this.parse(DesignServerCommand).flags
+    const {port, address: customAddress, verbose, dist, assets, basePath} =
+      this.parse(DesignServerCommand).flags
 
     const fastify = require('fastify')({
       logger: verbose ? {prettyPrint: true} : undefined
@@ -108,7 +113,7 @@ class DesignServerCommand extends Command {
       reply.sendFile(filePath)
     })
 
-    fastify.listen(port, (err, address) => {
+    fastify.listen(port, customAddress, (err, address) => {
       if (err) throw err
       host = address
       if (!verbose) this.log(chalk.green(`server listening at ${address}`))
