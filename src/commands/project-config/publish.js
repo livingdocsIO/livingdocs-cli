@@ -14,6 +14,7 @@ class PublishCommand extends Command {
   static flags = {
     project: sharedFlags.project,
     env: sharedFlags.env,
+    yes: sharedFlags.yes,
     token: {...sharedFlags.configWriteToken, required: true},
     host: {...sharedFlags.host, required: true},
     source: {...sharedFlags.source},
@@ -21,7 +22,7 @@ class PublishCommand extends Command {
   }
 
   async run () {
-    const {token, host, source, dist, env} = this.parse(PublishCommand).flags
+    const {token, host, source, dist, env, yes} = this.parse(PublishCommand).flags
     const reportError = errorReporter(this.log, host, {verbose: true})
 
     if (!source && !dist) throw new Error('Missing a source param')
@@ -46,14 +47,16 @@ class PublishCommand extends Command {
 
     if (!ok) return
 
-    const answers = await inquirer.prompt([{
-      name: 'continue',
-      type: 'confirm',
-      default: false,
-      message: `Are you sure to publish${env ? ` to ${env}` : ''}?`
-    }])
+    if (!yes) {
+      const answers = await inquirer.prompt([{
+        name: 'continue',
+        type: 'confirm',
+        default: false,
+        message: `Are you sure to publish${env ? ` to ${env}` : ''}?`
+      }])
 
-    if (!answers.continue) return
+      if (!answers.continue) return
+    }
 
     await liApi.publish({host, token, channelConfig: config})
       .then((result) => {
