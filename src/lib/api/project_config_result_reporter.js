@@ -70,7 +70,7 @@ module.exports = function ({result, log, omitPatches}) {
   }
 
   if (result.violations) {
-    error(`\nInvalid Config: there are invliad configuration properties`)
+    error(`\nInvalid Config: there are invalid configuration properties`)
 
     for (const err of result.violations) {
       error(` • ${err.pointer}: ${err.message}`)

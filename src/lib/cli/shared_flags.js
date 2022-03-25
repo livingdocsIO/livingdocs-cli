@@ -11,6 +11,11 @@ module.exports = {
     char: 'e',
     description: 'If used configuration options are loaded from .livingdocs-cli file.'
   }),
+  yes: flags.boolean({
+    char: 'y',
+    description: 'Confirm',
+    default () { return !process.stdin.isTTY }
+  }),
   configWriteToken: flags.string({
     char: 't',
     description: 'Access Token for your project (needs `public-api:config:write` permission).\n' +
