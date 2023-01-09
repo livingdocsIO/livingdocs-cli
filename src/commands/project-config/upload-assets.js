@@ -6,33 +6,23 @@ const liApi = require('../../lib/api/livingdocs_api')
 const sharedFlags = require('../../lib/cli/shared_flags')
 const {uploadAssets} = require('../../lib/upload_assets')
 
-const description = `Upload assets to your project`
-const commandFlags = {
-  host: sharedFlags.host,
-  username: sharedFlags.username,
-  assets: flags.string({
-    char: 'a',
-    description: 'The folder where you asset files are located.'
-  }),
-  designName: flags.string({
-    char: 'dn',
-    description: 'The design name of the assets to upload'
-  }),
-  designVersion: flags.string({
-    char: 'dv',
-    description: 'The design version of the assets to upload'
-  })
-}
 
 class UploadAssetsCommand extends Command {
-  static hidden = true
-  static description = `Upload assets to your project`
+  static description = `Upload assets to your design`
   static flags = {
     token: {...sharedFlags.configWriteToken, required: true},
     host: sharedFlags.host,
     assets: flags.string({
       char: 'a',
       description: 'The folder where you asset files are located.'
+    }),
+    designName: flags.string({
+      char: 'dn',
+      description: 'The design name of the assets to upload'
+    }),
+    designVersion: flags.string({
+      char: 'dv',
+      description: 'The design version of the assets to upload'
     })
   }
 

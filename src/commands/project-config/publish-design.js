@@ -6,23 +6,22 @@ const {uploadAssets} = require('../../lib/upload_assets')
 const liApi = require('../../lib/api/livingdocs_api')
 const chalk = require('chalk')
 
-const description = `Publish Design to DesignServer`
-const commandFlags = {
-  host: {...sharedFlags.host, required: true},
-  username: sharedFlags.username,
-  dist: {
-    ...sharedFlags.dist,
-    required: true,
-    description: 'The folder to the design.'
-  },
-  forceUpdate: flags.boolean({
-    char: 'f',
-    description: 'The design name of the assets to upload',
-    default: false
-  })
-}
-
 class PublishDesignCommand extends Command {
+  static description = `Publish Design to DesignServer`
+  static flags = {
+    host: {...sharedFlags.host, required: true},
+    username: sharedFlags.username,
+    dist: {
+      ...sharedFlags.dist,
+      required: true,
+      description: 'The folder to the design.'
+    },
+    forceUpdate: flags.boolean({
+      char: 'f',
+      description: 'The design name of the assets to upload',
+      default: false
+    })
+  }
 
   async run () {
     const {host, dist, username, forceUpdate} = this.parse(PublishDesignCommand).flags
@@ -37,14 +36,18 @@ class PublishDesignCommand extends Command {
       await liApi.authenticate({username: username || inputUser, password, host})
     const design = await buildDesign({designFolder: dist})
 
-    if (design.name === undefined) this.log(chalk.red('design.name is not set'))
-    if (design.version === undefined) this.log(chalk.red('design.version is not set'))
+    if (design.name === undefined) {
+      this.log(chalk.red('design.name is not set'))
+      return
+    }
+    if (design.version === undefined) {
+      this.log(chalk.red('design.version is not set'))
+      return
+    }
 
     await liApi.publishDesign({design, host, token, forceUpdate})
     await uploadAssets({folderPath: dist, host, token, design, axiosInstance})
   }
 }
 
-PublishDesignCommand.description = description
-PublishDesignCommand.flags = commandFlags
 module.exports = PublishDesignCommand
