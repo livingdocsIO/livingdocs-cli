@@ -1,0 +1,19 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Launch Program",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "env": {"LI_HOST": "http://localhost:9090"},
+            "args": ["project-config:publish-design", "--dist", "/home/mandermatt/projects/designs/living-stories-design/design/source", "--username", "meinrad+local@livingdocs.io", "--password", "footestfoo"],
+            "program": "${workspaceFolder}/bin/run"
+        }
+    ]
+}

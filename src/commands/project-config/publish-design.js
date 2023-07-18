@@ -11,6 +11,7 @@ class PublishDesignCommand extends Command {
   static flags = {
     host: {...sharedFlags.host, required: true},
     username: sharedFlags.username,
+    password: sharedFlags.password,
     dist: {
       ...sharedFlags.dist,
       required: true,
@@ -24,14 +25,17 @@ class PublishDesignCommand extends Command {
   }
 
   async run () {
-    const {host, dist, username, forceUpdate} = this.parse(PublishDesignCommand).flags
+    const {host, dist, username, password, forceUpdate} = this.parse(PublishDesignCommand).flags
     let inputUser
     if (!username) {
       inputUser = await cli.prompt('What is your username?')
     }
 
     // mask input after enter is pressed
-    const password = await cli.prompt('What is your password?', {type: 'hide'})
+    if (!password) {
+      password = await cli.prompt('What is your password?', {type: 'hide'})
+    }
+    
     const {token, axiosInstance} =
       await liApi.authenticate({username: username || inputUser, password, host})
     const design = await buildDesign({designFolder: dist})

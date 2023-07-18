@@ -107,6 +107,18 @@ module.exports = {
         return process.env.LI_USERNAME
       }
     }
+  }),
+  password: flags.string({
+    char: 'pw',
+    description: 'password for login',
+    default ({options, flags: givenFlags}) {
+      const sessionConfig = getCliConfig(givenFlags)
+      if (sessionConfig) {
+        return sessionConfig.password
+      } else {
+        return process.env.LI_PASSWORD
+      }
+    }
   })
 }
 
