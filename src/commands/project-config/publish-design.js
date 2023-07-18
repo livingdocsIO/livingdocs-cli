@@ -32,12 +32,13 @@ class PublishDesignCommand extends Command {
     }
 
     // mask input after enter is pressed
+    let inputPassword
     if (!password) {
-      password = await cli.prompt('What is your password?', {type: 'hide'})
+      inputPassword = await cli.prompt('What is your password?', {type: 'hide'})
     }
-    
+
     const {token, axiosInstance} =
-      await liApi.authenticate({username: username || inputUser, password, host})
+      await liApi.authenticate({username: username || inputUser, password: password || inputPassword, host})
     const design = await buildDesign({designFolder: dist})
 
     if (design.name === undefined) {
