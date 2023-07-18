@@ -38,7 +38,8 @@ class PublishDesignCommand extends Command {
     }
 
     const {token, axiosInstance} =
-      await liApi.authenticate({username: username || inputUser, password: password || inputPassword, host})
+      await liApi.authenticate({
+        username: username || inputUser, password: password || inputPassword, host})
     const design = await buildDesign({designFolder: dist})
 
     if (design.name === undefined) {
