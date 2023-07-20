@@ -1,4 +1,3 @@
-// WIP
 const url = require('url')
 const {Command, flags} = require('@oclif/command')
 const {cli} = require('cli-ux')

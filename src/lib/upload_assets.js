@@ -53,7 +53,6 @@ async function uploadAssets ({folderPath, host, token, design, axiosInstance}) {
     })
 }
 
-// todo: move to the livingdocs_API
 async function uploadAsset ({relativePath, filePath, host, token, design, axiosInstance}) {
   const assetApiPath = `/designs/${design.name}/${design.version}/assets`
   const url = `${concat(host, assetApiPath)}`
@@ -83,11 +82,6 @@ function formatError (err) {
   } else if (status === 403) {
     return `AccessToken requires higher privileges`
   } else {
-    // if (status) {
-    //   const content = JSON.parse(err.response.body)
-    //   const errorDetails = content.error_details
-    // }
-
     return err.toString()
   }
 }
