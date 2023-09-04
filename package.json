@@ -56,7 +56,7 @@
     "eslint": "^8.5.0",
     "eslint-config-oclif": "^4.0.0",
     "mocha": "^10.0.0",
-    "nock": "^11.9.1",
+    "nock": "^13.0.0",
     "nyc": "^14.1.1"
   },
   "engines": {
