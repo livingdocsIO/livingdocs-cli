@@ -6,7 +6,7 @@ const sharedFlags = require('../../lib/cli/shared_flags')
 const liApi = require('../../lib/api/livingdocs_api')
 const errorReporter = require('../../lib/api/error_reporter')
 const resultReporter = require('../../lib/api/project_config_result_reporter')
-const readChannelConfig = require('../../lib/read_channel_config')
+const readProjectConfig = require('../../lib/read_project_config')
 const updateRevisionNumber = require('../../lib/update_revision_number')
 
 class PublishCommand extends Command {
@@ -27,14 +27,14 @@ class PublishCommand extends Command {
 
     if (!source && !dist) throw new Error('Missing a source param')
 
-    const config = await readChannelConfig({source: source || dist})
+    const config = await readProjectConfig({source: source || dist})
       .catch((err) => {
         this.log(chalk.red('✕ Parsing Failed'))
         throw err
       })
 
     let ok = false
-    await liApi.plan({host, token, channelConfig: config})
+    await liApi.plan({host, token, projectConfig: config})
       .then((result) => {
         ok = result.ok
 
@@ -58,7 +58,7 @@ class PublishCommand extends Command {
       if (!answers.continue) return
     }
 
-    await liApi.publish({host, token, channelConfig: config})
+    await liApi.publish({host, token, projectConfig: config})
       .then((result) => {
         resultReporter({result, log: this.log})
         updateRevisionNumber({

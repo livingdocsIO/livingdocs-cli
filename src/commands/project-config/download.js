@@ -5,7 +5,7 @@ const {Command, flags} = require('@oclif/command')
 
 const sharedFlags = require('../../lib/cli/shared_flags')
 const liApi = require('../../lib/api/livingdocs_api')
-const writeConfig = require('../../lib/write_channel_config')
+const writeConfig = require('../../lib/write_project_config')
 const errorReporter = require('../../lib/api/error_reporter')
 const assertDistFolder = require('../../lib/cli/assert_dist_folder')
 
@@ -38,7 +38,7 @@ class DownloadCommand extends Command {
     if (dist) {
       const {fileCount, oldFiles} = await writeConfig({
         destination: dist,
-        channelConfig: result,
+        projectConfig: result,
         fileType: format || 'js',
         componentsAsHtml: false
       })

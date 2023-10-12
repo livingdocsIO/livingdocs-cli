@@ -52,7 +52,7 @@ module.exports = function ({result, log, omitPatches}) {
       else info(`\n✓ All ${count} patches look good.\n`)
     } else {
       success(dedent`
-        ✓ Success. Channel Config Published.
+        ✓ Success. Project Config Published.
 
           Revision: ${result.revisionNumber}
           DesignVersion: ${result.designVersion || '-'}

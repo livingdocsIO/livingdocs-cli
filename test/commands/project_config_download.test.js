@@ -2,7 +2,7 @@ const fs = require('fs-extra')
 
 const {expect, test} = require('../support/test_setup')
 
-const simpleChannelConfig = require('../fixtures/project/simple_channel_config')
+const simpleProjectConfig = require('../fixtures/project/simple_project_config')
 
 describe('project-config:download', function () {
 
@@ -15,17 +15,17 @@ describe('project-config:download', function () {
       LI_SKIP_CWD_CHECK: 'true'
     })
     .nock('https://mock.api.localhost', api => api
-      .get('/api/v1/channelConfig')
-      .reply(200, simpleChannelConfig)
+      .get('/api/v1/projectConfig')
+      .reply(200, simpleProjectConfig)
     )
     .command('project-config:download --format=json'.split(' '))
-    .it(`downloads a channelConfig as JSON`, (ctx) => {
+    .it(`downloads a projectConfig as JSON`, (ctx) => {
       const files = fs.readdirSync(ctx.tmpdir)
       expect(files).to.have.members(['index.json'])
 
       const jsonData = fs.readFileSync(`${ctx.tmpdir}/index.json`, 'utf8')
       const data = JSON.parse(jsonData)
-      expect(data).to.deep.equal(simpleChannelConfig)
+      expect(data).to.deep.equal(simpleProjectConfig)
     })
 
   test
@@ -37,11 +37,11 @@ describe('project-config:download', function () {
       LI_SKIP_CWD_CHECK: 'true'
     })
     .nock('https://mock.api.localhost', api => api
-      .get('/api/v1/channelConfig')
-      .reply(200, simpleChannelConfig)
+      .get('/api/v1/projectConfig')
+      .reply(200, simpleProjectConfig)
     )
     .command('project-config:download --format=js/html'.split(' '))
-    .it(`downloads a channelConfig and writes js and html files`, (ctx) => {
+    .it(`downloads a projectConfig and writes js and html files`, (ctx) => {
       const files = fs.readdirSync(ctx.tmpdir)
 
       expect(files).to.have.members([

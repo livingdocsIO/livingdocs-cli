@@ -10,32 +10,31 @@ axiosJarInstance.interceptors.response.use(responseInterceptor)
 // down- and upload to the ☁️
 module.exports = {
 
-  // ChannelConfig
-  // -------------
+  // Project Config
+  // --------------
 
   async download ({host, token}) {
-    return axios(host, token).get('/api/v1/channelConfig')
+    return axios(host, token).get('/api/v1/projectConfig')
       .then((response) => {
         return response.data
       })
 
   },
 
-  async plan ({host, token, channelConfig}) {
-    return axios(host, token).post('/api/v1/channelConfig', {
+  async plan ({host, token, projectConfig}) {
+    return axios(host, token).post('/api/v1/projectConfig', {
       plan: true,
-      channelConfig
+      projectConfig
     })
       .then((response) => {
         return response.data
       })
-
   },
 
-  async publish ({host, token, channelConfig}) {
-    return axios(host, token).post('/api/v1/channelConfig', {
+  async publish ({host, token, projectConfig}) {
+    return axios(host, token).post('/api/v1/projectConfig', {
       plan: false,
-      channelConfig
+      projectConfig
     })
       .then((response) => {
         return response.data

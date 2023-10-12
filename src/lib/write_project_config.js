@@ -9,15 +9,15 @@ const {stringify: stringifyjs} = require('javascript-stringify')
 const buildFile = require('./utils/build_file')
 const {indentString} = require('./utils')
 
-module.exports = async function ({destination, channelConfig, fileType, componentsAsHtml}) {
+module.exports = async function ({destination, projectConfig, fileType, componentsAsHtml}) {
   const rootFolder = path.resolve(destination)
   const writeHtml = fileType === 'js/html'
-  const baseRevision = channelConfig.$baseRevision
+  const baseRevision = projectConfig.$baseRevision
 
   await fs.ensureDir(rootFolder)
 
   if (fileType === 'json') {
-    return writeJsonFile(`${rootFolder}/index.json`, channelConfig)
+    return writeJsonFile(`${rootFolder}/index.json`, projectConfig)
   }
 
   fileType = 'js'
@@ -36,11 +36,11 @@ module.exports = async function ({destination, channelConfig, fileType, componen
   }
   indexFile.line('', 1)
 
-  for (const key in channelConfig) {
+  for (const key in projectConfig) {
     if (key === 'v') continue
     if (key === '$baseRevision') continue
 
-    const prop = channelConfig[key]
+    const prop = projectConfig[key]
 
     if (Array.isArray(prop)) {
       const folder = `${rootFolder}/${_kebabCase(key)}`
