@@ -42,23 +42,6 @@ module.exports = {
       })
   },
 
-  async listDrafts ({host, token}) {
-    return axios(host, token).get('/api/v1/channelConfig/drafts')
-      .then((response) => {
-        return response.data
-      })
-  },
-
-  async uploadDraft ({host, token, draftName, channelConfig}) {
-    return axios(host, token).put('/api/v1/channelConfig/drafts', {
-      draftName,
-      channelConfig
-    })
-      .then((response) => {
-        return response.data
-      })
-  },
-
   // At the moment the user cookie is needed. So the authenticate should be called first.
   async publishDesign ({token, host, design, forceUpdate}) {
     const forceUpdateValue = `?force=${forceUpdate ? 'true' : 'false'}`
