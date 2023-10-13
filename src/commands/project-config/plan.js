@@ -4,7 +4,7 @@ const sharedFlags = require('../../lib/cli/shared_flags')
 const liApi = require('../../lib/api/livingdocs_api')
 const errorReporter = require('../../lib/api/error_reporter')
 const resultReporter = require('../../lib/api/project_config_result_reporter')
-const readChannelConfig = require('../../lib/read_channel_config')
+const readProjectConfig = require('../../lib/read_project_config')
 
 class PlanCommand extends Command {
   static description = `See what would be updated in a publish command`
@@ -23,9 +23,9 @@ class PlanCommand extends Command {
 
     if (!source && !dist) throw new Error('Missing a source param')
 
-    const config = await readChannelConfig({source: source || dist})
+    const config = await readProjectConfig({source: source || dist})
 
-    await liApi.plan({host, token, channelConfig: config})
+    await liApi.plan({host, token, projectConfig: config})
       .then((result) => {
         resultReporter({result, log: this.log})
       })
