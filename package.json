@@ -51,7 +51,7 @@
   },
   "devDependencies": {
     "@oclif/dev-cli": "^1.26.0",
-    "@oclif/test": "^2.0.0",
+    "@oclif/test": "^3.0.0",
     "chai": "^4.3.4",
     "eslint": "^8.5.0",
     "eslint-config-oclif": "^4.0.0",
