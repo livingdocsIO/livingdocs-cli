@@ -24,7 +24,7 @@ module.exports = {
   async plan ({host, token, projectConfig}) {
     return axios(host, token).post('/api/v1/projectConfig', {
       plan: true,
-      projectConfig
+      channelConfig: projectConfig
     })
       .then((response) => {
         return response.data
@@ -34,7 +34,7 @@ module.exports = {
   async publish ({host, token, projectConfig}) {
     return axios(host, token).post('/api/v1/projectConfig', {
       plan: false,
-      projectConfig
+      channelConfig: projectConfig
     })
       .then((response) => {
         return response.data
