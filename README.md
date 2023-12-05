@@ -3,6 +3,9 @@
 [![Downloads/week](https://img.shields.io/npm/dw/livingdocs-cli.svg)](https://npmjs.org/package/livingdocs-cli)
 [![License](https://img.shields.io/npm/l/livingdocs-cli.svg)](https://github.com/livingdocsIO/livingdocs-cli/blob/master/package.json)
 
+# Repo moved to
+https://github.com/livingdocsIO/customer-solutions
+
 # livingdocs-cli
 
 Livingdocs Command Line Interface
